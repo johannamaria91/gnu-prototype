@@ -3,7 +3,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 
 function App() {
-const [username, setUsername] = useState('Johanna')
+const [username, setUsername] = useState('Johannaa')
 const [subject, setSubject] = useState('')
 const [messageText, setMessageText] = useState('')
 const [newMessage, setNewMessage] = useState()
