@@ -11,19 +11,6 @@ const [messageText, setMessageText] = useState('')
 const [dataList, setDataList] = useState([])
 const url = 'http://localhost:3363/api/posts'
 
-function handleClick(e) {
-  e.preventDefault()
-/*   setMessageDone(true)
- */  
-  let message = {
-    User: username,
-    Text: messageText,
-    DateTime: new Date().toISOString().slice(0, 19).replace('T', ' ')
-  }
-  addNewPost(message)
-  getData();
-}
-
 useEffect(() => {
   
   async function getData() {
@@ -36,12 +23,26 @@ console.log(data)
   getData()
 }, [])
 
+
+function handleClick(e) {
+  e.preventDefault()
+/*   setMessageDone(true)
+ */  
+  let message = {
+    User: username,
+    Text: messageText,
+  }
+  addNewPost(message)
+  
+}
+
+
 async function addNewPost(message) {
   await fetch(url, {
     method: 'POST',
     body: JSON.stringify(message),
     headers: {
-        "Content-type": "application/json; charset=UTF-8"
+        "Content-type": "application/json; charset=UTF-8",
     }
 })
 }
@@ -69,21 +70,15 @@ async function addNewPost(message) {
           )
          : 'oops kan inte nå api'}
           
-          {messageDone? <article>
-            <h4>Username: {newMessage.user}</h4>
-            <h4>Time: 21-11-15 16:06</h4>
-            <h4>Subject: {newMessage.subject}</h4>
-            <p>{newMessage.text}</p>
-          </article> 
-          : null} 
+
           
 
         </section>
         <section className="new-message">
          <form> 
-          <input type="text" placeholder={username} value={username}/> 
-          <input type="text" placeholder="Ämne..." value={subject} onChange={e => setSubject(e.target.value)}/> 
-          <input type="text" placeholder="Ditt meddelande..." onChange={e => setMessageText(e.target.value)}/> 
+          <input type="text" placeholder={username}/> 
+          {/* <input type="text" placeholder="Ämne..." value={subject} onChange={e => setSubject(e.target.value)}/>  */}
+          <input type="text" placeholder="Ditt meddelande..."  onChange={e => setMessageText(e.target.value)}/> 
           <button onClick={(e)=>handleClick(e)}>Send message</button>
         </form> 
         </section>
