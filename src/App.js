@@ -1,39 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-const [username, setUsername] = useState('Johannaa')
-const [subject, setSubject] = useState('')
+const [username, setUsername] = useState('')
 const [messageText, setMessageText] = useState('')
-/* const [newMessage, setNewMessage] = useState()*/
-/* const [messageDone, setMessageDone] = useState(false) */
 const [dataList, setDataList] = useState([])
 const url = 'http://localhost:3363/api/posts'
 
 useEffect(() => {
-  
-  async function getData() {
-  const response = await fetch(url) 
-  const data = await response.json()
-  const one = data[0]
-  setDataList(data)
-console.log(data) 
-}
   getData()
 }, [])
 
+async function getData() {
+const response = await fetch(url)
+const data = await response.json()
+console.log(data)
+setDataList(data);
+}
 
 function handleClick(e) {
   e.preventDefault()
-/*   setMessageDone(true)
- */  
   let message = {
     User: username,
     Text: messageText,
   }
   addNewPost(message)
-  
 }
 
 
@@ -42,9 +34,10 @@ async function addNewPost(message) {
     method: 'POST',
     body: JSON.stringify(message),
     headers: {
-        "Content-type": "application/json; charset=UTF-8",
+      "Content-type": "application/json; charset=UTF-8",
     }
-})
+  })
+  getData();
 }
 
   return (
@@ -59,8 +52,8 @@ async function addNewPost(message) {
            <li>Kompis 3</li>
          </ul> 
         </section>
-        <section className="messages">
 
+        <section className="messages">
           { dataList? dataList.map(comment => 
             <article key={comment.Id}>
               <h4>Username: {comment.User}</h4>
@@ -69,22 +62,17 @@ async function addNewPost(message) {
             </article>
           )
          : 'oops kan inte nå api'}
-          
-
-          
-
         </section>
+
         <section className="new-message">
          <form> 
-          <input type="text" placeholder={username}/> 
-          {/* <input type="text" placeholder="Ämne..." value={subject} onChange={e => setSubject(e.target.value)}/>  */}
+          <input type="text" placeholder={"namn"} onChange={e => setUsername(e.target.value)}/> 
           <input type="text" placeholder="Ditt meddelande..."  onChange={e => setMessageText(e.target.value)}/> 
-          <button onClick={(e)=>handleClick(e)}>Send message</button>
+          <button type="button" className="btn btn-primary" onClick={(e)=>handleClick(e)}>Send message</button>
         </form> 
         </section>
       </main>
     </div>
   );
 }
-
 export default App;
