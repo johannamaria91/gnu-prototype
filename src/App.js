@@ -25,9 +25,10 @@ useEffect(() => {
   
   async function getData() {
   const response = await fetch('http://localhost:3363/api/posts') 
-  const data = response.json()
+  const data = await response.json()
+  const one = data[0]
   setDataList(data)
-
+console.log(data) 
 }
   getData()
 
@@ -48,14 +49,15 @@ useEffect(() => {
         </section>
         <section className="messages">
 
-          { dataList? dataList.map(comment => {
-            <article>
-              <h4>Username: {comment.user}</h4>
+    {/* <p>{dataList? dataList[0].user:null}</p> */}
+          { dataList? dataList.map(comment => 
+            <article key={comment.Id}>
+              <h4>Username: {comment.User}</h4>
               <h4>Time: {comment.dateTime}</h4>
-              <p>{comment.text}</p>
+              <p>{comment.Text}</p>
             </article>
-          })
-        : 'oops kan inte nå api'}
+          )
+         : 'oops kan inte nå api'}
           {/* <article>
           <h4>Username: En kompis</h4>
           <h4>Time: 21-11-15 16:06</h4>
@@ -88,12 +90,12 @@ useEffect(() => {
 
         </section>
         <section className="new-message">
-        <form> 
+        {/* <form> 
           <input type="text" placeholder={username} value={username}/> 
           <input type="text" placeholder="Ämne..." value={subject} onChange={e => setSubject(e.target.value)}/> 
           <input type="text" placeholder="Ditt meddelande..." onChange={e => setMessageText(e.target.value)}/> 
           <button onClick={(e)=>handleClick(e)}>Send message</button>
-        </form>
+        </form> */}
         </section>
       </main>
     </div>
