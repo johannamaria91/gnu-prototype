@@ -10,6 +10,7 @@ const [dataList, setDataList] = useState([])
 const url = 'http://localhost:3363/api/posts'
 const [showComments, setShowComments] = useState(false)
 const [commentsSection, setCommentsSection] = useState('')
+const [activePost, setactivePost] = useState(false)
 /* const testdata = [{
 User: "Johanna",
 DateTime: new Date().toLocaleString(),
@@ -53,8 +54,9 @@ function handleClick(e) {
 
 function goToComments(e, Id) {
   e.preventDefault();
-  setShowComments(true)
   setCommentsSection(<Comments id={Id}/>) 
+  setShowComments(true)
+  setactivePost(Id)
 }
 
 async function addNewPost(message) {
@@ -69,30 +71,35 @@ async function addNewPost(message) {
 }
 
   return (
+
+    // counter++ 
+
     <div className="App">
       <header> <h1>I want a Gnu</h1></header>
       <main> 
-        <section class="main-container">
+        <section className="main-container">
           <section className="friends">
          <ul>
            <li>Kompis 1</li>
            <li>Kompis 2</li>
            <li>Kompis 3</li>
          </ul> 
+        
         </section>
 
         <section className="messages">
-          { dataList? dataList.map(comment => 
-            <article key={comment.Id}>
+          { dataList? dataList.map(post => 
+            <article key={post.postid} >
               <div className="header">
-              <h4 className="user">{comment.User} said:</h4>
-              <h4>{comment.DateTime}</h4>
-
+              <h4 className="user">{post.User} said:</h4>
+              <h4>{post.DateTime}</h4>
+            
               </div>
-              <p>{comment.Text}</p>
+              <p>{post.Text}</p>
               <section className="reaction-container">
               <button>Reply</button>
-              <button onClick={(e) => goToComments(e, comment.Id)}>See comments</button>
+
+              <button className={activePost===post.postid? "active-post":null} onClick={(e) => goToComments(e, post.postid) }>See comments</button>
               </section>
             </article>
           )
@@ -106,11 +113,12 @@ async function addNewPost(message) {
           <button type="button" className="btn" onClick={(e)=>handleClick(e)}>Send message</button>
         </form> 
         </article>
+        
         </section>
-
+        {showComments? commentsSection : null}
           </section> 
         
-        {showComments? commentsSection : null}
+       
       </main>
     </div>
   );
