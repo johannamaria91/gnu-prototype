@@ -101,6 +101,7 @@ async function addNewPost(message) {
 
               <button className={activePost===post.postid? "active-post":null} onClick={(e) => goToComments(e, post.postid) }>See comments</button>
               </section>
+              {showComments && activePost===post.postid? commentsSection : null}
             </article>
           )
          : 'oops kan inte nå api'}
@@ -115,7 +116,6 @@ async function addNewPost(message) {
         </article>
         
         </section>
-        {showComments? commentsSection : null}
           </section> 
         
        

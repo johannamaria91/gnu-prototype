@@ -18,12 +18,10 @@ function Comments(props) {
 
     return (
        
-        <section className="comments bg-dark text-light">
-            {console.log(commentsList)}
-
-
+        <section className="comments">
+           
             {commentsList? commentsList.map(comment => <article key={comment.commentid}>
-                {console.log(comment.commentid)}
+
                 <p>{comment.comment_text}</p>
             </article>):'no comments for this post'}
         </section>

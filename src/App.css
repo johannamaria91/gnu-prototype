@@ -4,8 +4,8 @@
 
 body {
   --off-white: whitesmoke;
-  --primary-color: rgb(248, 176, 148);
-  --primary-text-color: rgb(31, 30, 30);
+  --primary-color: rgb(231, 143, 28);
+  --primary-text-color: rgb(223, 223, 223);
   --line-color: rgb(59, 58, 58);
   margin: 0 10em;
 }
@@ -26,7 +26,7 @@ padding: .5em;
 }
 
 .friends {
-  background: rgb(212, 121, 88);
+  background: rgb(249, 167, 39);
   grid-column: 1 / span 1;
   grid-row: 1 / span 2;
   /* flex-grow: 1; */
@@ -122,10 +122,18 @@ li {
 
  .active-post{
   background-color: darkgreen;
-  color: darkcyan;
+  color: rgb(214, 207, 207);
+}
+.comments {
+  padding:0;
 }
 
-
+.comments article{
+  border-bottom:none;
+  padding:1em 0.5em ;
+  font-size: .8em;
+  background-color: rgb(165, 103, 4);
+}
 
 
 
