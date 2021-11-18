@@ -29,7 +29,7 @@ padding: .5em;
   background: rgb(212, 121, 88);
   grid-column: 1 / span 1;
   grid-row: 1 / span 2;
-  flex-grow: 1;
+  /* flex-grow: 1; */
   word-wrap: nowrap;
   
 }
@@ -119,6 +119,12 @@ li {
   font-size: .8em;
   padding: 0;
 }
+
+ .active-post{
+  background-color: darkgreen;
+  color: darkcyan;
+}
+
 
 
 
