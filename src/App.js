@@ -1,12 +1,15 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Comments from './components/Comments';
 
 function App() {
 const [username, setUsername] = useState('')
 const [messageText, setMessageText] = useState('')
 const [dataList, setDataList] = useState([])
 const url = 'http://localhost:3363/api/posts'
+const [showComments, setShowComments] = useState(false)
+const [commentsSection, setCommentsSection] = useState('')
 /* const testdata = [{
 User: "Johanna",
 DateTime: new Date().toLocaleString(),
@@ -48,6 +51,11 @@ function handleClick(e) {
   addNewPost(message)
 }
 
+function goToComments(e, Id) {
+  e.preventDefault();
+  setShowComments(true)
+  setCommentsSection(<Comments id={Id}/>) 
+}
 
 async function addNewPost(message) {
   await fetch(url, {
@@ -84,6 +92,7 @@ async function addNewPost(message) {
               <p>{comment.Text}</p>
               <section className="reaction-container">
               <button>Reply</button>
+              <button onClick={(e) => goToComments(e, comment.Id)}>See comments</button>
               </section>
             </article>
           )
@@ -101,7 +110,7 @@ async function addNewPost(message) {
 
           </section> 
         
-        
+        {showComments? commentsSection : null}
       </main>
     </div>
   );
