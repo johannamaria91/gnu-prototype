@@ -52,6 +52,7 @@ async function addNewPost(message) {
            <li>Kompis 2</li>
            <li>Kompis 2</li>
            <li>Kompis 3</li>
+           <li>Kompis 3</li>
          </ul> 
         </section>
 
