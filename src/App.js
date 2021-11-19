@@ -72,8 +72,6 @@ async function addNewPost(message) {
 
   return (
 
-    // counter++ 
-
     <div className="App">
       <header> <h1>I want a Gnu</h1></header>
       <main> 
@@ -97,9 +95,8 @@ async function addNewPost(message) {
               </div>
               <p>{post.Text}</p>
               <section className="reaction-container">
-              <button>Reply</button>
 
-              <button className={activePost===post.postid? "active-post":null} onClick={(e) => goToComments(e, post.postid) }>See comments</button>
+              <button className={activePost===post.postid? "active-post":null} onClick={(e) => goToComments(e, post.postid) }>Comments</button>
               </section>
               {showComments && activePost===post.postid? commentsSection : null}
             </article>
