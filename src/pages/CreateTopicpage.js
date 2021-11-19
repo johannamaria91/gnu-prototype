@@ -2,20 +2,18 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 
 
-const url = 'http://localhost:3363/api/  somthing new'
 
 function CreateNewTopicPage (){
-
-    const [topic, setmakeNewTopic] = useState('')
-    const [description, setdiscriptionOfTopic] = useState('')
-
+  const [topic, setmakeNewTopic] = useState('bananer')
+  const [description, setdiscriptionOfTopic] = useState('i love mi bannanas')
+  const url = 'http://localhost:3363/api/  somthing new'
 
     useEffect(() => {
-        getData()
+        fetchData()
       }, [])
       
 
-    async function getData() {
+    async function fetchData() {
         const response = await fetch(url)
         const topicResponse = await response.json()
         console.log(topicResponse)
@@ -39,7 +37,7 @@ function CreateNewTopicPage (){
             "Content-type": "application/json; charset=UTF-8",
           }
         })
-        getData();
+        fetchData();
       }
 
 

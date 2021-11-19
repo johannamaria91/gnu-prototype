@@ -1,6 +1,6 @@
-import './App.css';
-import { useEffect, useState } from 'react';
+import "../styles/conversation.css";
 import React from 'react';
+import { useEffect, useState } from 'react';
 
 function ConversationPage() {
 const [username, setUsername] = useState('')
