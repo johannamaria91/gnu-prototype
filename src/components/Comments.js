@@ -13,6 +13,7 @@ function Comments(props) {
     const [commentActive ,setCommentActive] = useState('')
     const [deletecommentActive ,setDeleteCommentActive] = useState('')
     const [deleteActive, setDeleteActive] = useState(false)
+    const [showForm,setShowForm]= useState(true)
 
     
     useEffect(()=>{
@@ -35,6 +36,7 @@ function Comments(props) {
         }
         console.log(id)
         addNewComment(message)
+        setShowForm(false)
       }    
 
       function handleEdit(e, comment){
@@ -118,7 +120,7 @@ function Comments(props) {
 
             </article>):'no comments for this post'}
         
-        <form>
+        <form className={!showForm?"hide": "newComment-form"}>
       
         <label htmlFor="userName">User</label>
         <input type="text" id="userName" className="form-control form-control-sm" onChange={e => setUsername(e.target.value)}/> 
@@ -128,6 +130,7 @@ function Comments(props) {
         <textarea className="form-control z-depth-1" id="commentArea" rows="2" onChange={e => setMessageText(e.target.value) }></textarea>
         </div>
         <button type="button" className="btn border border-1 mt-2" onClick={(e)=>handleClick(e)}>Send message</button>
+        <button type="button" className="btn border border-1 mt-2" onClick={()=>setShowForm(false)}>Cancel</button>
 
         </form>
         

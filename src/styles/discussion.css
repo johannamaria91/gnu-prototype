@@ -102,9 +102,6 @@ body {
     list-style: none;
   }
   
-  
-  
-  
   .reaction-container {
     display: flex;
     flex-direction: row;
@@ -123,4 +120,8 @@ body {
    .active-post{
     background-color: darkgreen;
     color: rgb(214, 207, 207);
+  }
+
+  .hide {
+    display: none;
   }

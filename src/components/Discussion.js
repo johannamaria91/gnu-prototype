@@ -104,7 +104,7 @@ function Discussion (){
              : 'oops kan inte nå api'}
     
     
-             <article className="new-message">
+             <article  className={showComments?"hide": "new-message" }>
              <form> 
               <input type="text" placeholder={"Namn"} className="input-name" onChange={e => setUsername(e.target.value)}/> 
               <textarea placeholder="Ditt meddelande..."  className="input-text"onChange={e => setMessageText(e.target.value)}/> 
