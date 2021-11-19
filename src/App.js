@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import Conversationpage from './pages/Conversation';
-//import CreateNewTopicpage from "./pages/CreateTopicpage";
+import CreateNewTopicpage from "./pages/CreateTopicpage";
 
 
 function App() {
@@ -15,8 +15,8 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          {/*<Route exact path="/topic" component={CreateNewTopicpage} />*/} 
-          <Route exact path="/" component={Conversationpage} />
+          <Route exact path="/" element={<Conversationpage/>} />
+          <Route path="/topic" element={<CreateNewTopicpage/>} />
         </Routes>
       </div>
     </Router>
