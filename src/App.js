@@ -2,24 +2,22 @@ import './App.css';
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
-  Redirect,
 } from "react-router-dom";
 
 import Conversationpage from './pages/Conversation';
-import CreateNewTopicpage from "./pages/CreateTopicpage";
+//import CreateNewTopicpage from "./pages/CreateTopicpage";
 
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Switch>
-          <Route exact path="/topic" component={CreateNewTopicpage}  /> 
+        <Routes>
+          {/*<Route exact path="/topic" component={CreateNewTopicpage} />*/} 
           <Route exact path="/" component={Conversationpage} />
-          <Redirect to="/" />
-        </Switch>
+        </Routes>
       </div>
     </Router>
   );
