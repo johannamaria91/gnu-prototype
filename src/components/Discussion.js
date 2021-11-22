@@ -55,7 +55,7 @@ function Discussion (){
     function goToComments(e, Id) {
       e.preventDefault();
       setCommentsSection(<Comments id={Id}/>) 
-      setShowComments(true)
+      setShowComments(!showComments)
       setactivePost(Id)
     }
     

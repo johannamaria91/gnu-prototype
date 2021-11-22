@@ -36,8 +36,15 @@ function Comments(props) {
         }
         console.log(id)
         addNewComment(message)
-        setShowForm(false)
+        setMessageText("");
+        setUsername("");
       }    
+
+    function cancel(){
+      setShowForm(false)
+      setMessageText("");
+      setUsername("");
+    }
 
       function handleEdit(e, comment){
           e.preventDefault()
@@ -123,18 +130,16 @@ function Comments(props) {
         <form className={!showForm?"hide": "newComment-form"}>
       
         <label htmlFor="userName">User</label>
-        <input type="text" id="userName" className="form-control form-control-sm" onChange={e => setUsername(e.target.value)}/> 
+        <input value={username}  type="text" id="userName" className="form-control form-control-sm" onChange={e => setUsername(e.target.value)}/> 
 
         <div className="form-group shadow-textarea">
         <label htmlFor="commentArea">Message</label>  
-        <textarea className="form-control z-depth-1" id="commentArea" rows="2" onChange={e => setMessageText(e.target.value) }></textarea>
+        <textarea value={messageText} className="form-control z-depth-1" id="commentArea" rows="2" onChange={e => setMessageText(e.target.value) }></textarea>
         </div>
         <button type="button" className="btn border border-1 mt-2" onClick={(e)=>handleClick(e)}>Send message</button>
-        <button type="button" className="btn border border-1 mt-2" onClick={()=>setShowForm(false)}>Cancel</button>
+        <button type="button" className="btn border border-1 mt-2" onClick={()=>cancel()}>Cancel</button>
 
         </form>
-        
-    
         </section>
        
     )
