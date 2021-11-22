@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import NavBar from '../NavBar/NavBar';
 
 function CreateNewTopicPage (){
   const [topic, setmakeNewTopic] = useState('bananer')
@@ -41,6 +42,7 @@ function CreateNewTopicPage (){
 
     return (
         <div className="mainContainer-NewTopic">
+          <NavBar/>
           <Link to="/disc">
             <section className="discussions-main-section">
                 <div className="friends-topics-div">
