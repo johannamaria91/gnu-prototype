@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Comments from './Comments';
 import "../styles/discussion.css";
+import Friends from './Friends/Friends'
+
 
 function Discussion (){
     const [username, setUsername] = useState('')
@@ -11,26 +13,6 @@ function Discussion (){
     const [showComments, setShowComments] = useState(false)
     const [commentsSection, setCommentsSection] = useState('')
     const [activePost, setactivePost] = useState(false)
-    /* const testdata = [{
-    User: "Johanna",
-    DateTime: new Date().toLocaleString(),
-    Text: "Hej hej!"
-    },
-    {
-      User: "Johanna",
-      DateTime: new Date().toLocaleString(),
-      Text: "Hej hej!"
-      },
-      {
-        User: "Johanna",
-        DateTime: new Date().toLocaleString(),
-        Text: "Hej hej! hkadfhsk hfakskf  hkfahka fhahkhfakhfk ahkfahks hdashkhfsf hasfhkaf h afhkafh ak ahhjdhajhsah  dhajdhsaj d hajhdjd ahj"
-        },
-        {
-          User: "Johanna",
-          DateTime: new Date().toLocaleString(),
-          Text: "Hej hej!"
-          }] */
     
     useEffect(() => {
       getData()
@@ -78,9 +60,7 @@ function Discussion (){
             <section className="main-container">
               <section className="friends">
              <ul>
-               <li>Kompis 1</li>
-               <li>Kompis 2</li>
-               <li>Kompis 3</li>
+               <Friends/>
              </ul> 
             
             </section>

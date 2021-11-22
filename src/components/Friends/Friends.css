@@ -86,3 +86,6 @@ body {
   line-break: strict;
 }
 
+ul {
+  padding: 0;
+}

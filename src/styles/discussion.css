@@ -13,12 +13,8 @@ body {
   .main-container {
    display: flex;
    flex-direction: row;
-    /* display: grid;
-    grid-template-columns: 1fr 4fr; */
-   /*  grid-template-rows: 4fr 1fr; */
-   padding: 2em 10em;
    background: var(--primary-color);
-   margin: 0 5em;
+   padding: 0;
   }
   main section {
   text-align: left;
