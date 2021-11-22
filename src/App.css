@@ -16,9 +16,9 @@ body {
   /* display: grid;
   grid-template-columns: 1fr 4fr; */
  /*  grid-template-rows: 4fr 1fr; */
- padding: 2em 10em;
+  /* padding: 2em 10em; */
  background: var(--primary-color);
- margin: 0 5em;
+ margin: 2em;
 }
 main section {
 text-align: left;
@@ -26,11 +26,14 @@ padding: .5em;
 }
 
 .friends {
+  display: flex;
+  flex-direction: column;
   background: rgb(249, 167, 39);
   grid-column: 1 / span 1;
   grid-row: 1 / span 2;
   /* flex-grow: 1; */
-  word-wrap: nowrap;
+  align-self: flex-start;
+
   
 }
 .friends ul {
@@ -136,5 +139,7 @@ li {
 }
 
 
-
+section.friends {
+  height: 50px
+}
 

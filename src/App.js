@@ -1,22 +1,18 @@
-import './App.css';
+import './App.css'
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Comments from './components/Comments';
+import Friends from './components/Friends/Friends'
 
 function App() {
-const [username, setUsername] = useState('')
-const [messageText, setMessageText] = useState('')
-const [dataList, setDataList] = useState([])
-const url = 'http://localhost:3363/api/posts'
-const [showComments, setShowComments] = useState(false)
-const [commentsSection, setCommentsSection] = useState('')
-const [activePost, setactivePost] = useState(false)
-/* const testdata = [{
-User: "Johanna",
-DateTime: new Date().toLocaleString(),
-Text: "Hej hej!"
-},
-{
+  const [username, setUsername] = useState('')
+  const [messageText, setMessageText] = useState('')
+  const [dataList, setDataList] = useState([])
+  const url = 'http://localhost:3363/api/posts'
+  const [showComments, setShowComments] = useState(false)
+  const [commentsSection, setCommentsSection] = useState('')
+  const [activePost, setactivePost] = useState(false)
+  /* const testdata = [{
   User: "Johanna",
   DateTime: new Date().toLocaleString(),
   Text: "Hej hej!"
@@ -24,51 +20,56 @@ Text: "Hej hej!"
   {
     User: "Johanna",
     DateTime: new Date().toLocaleString(),
-    Text: "Hej hej! hkadfhsk hfakskf  hkfahka fhahkhfakhfk ahkfahks hdashkhfsf hasfhkaf h afhkafh ak ahhjdhajhsah  dhajdhsaj d hajhdjd ahj"
+    Text: "Hej hej!"
     },
     {
       User: "Johanna",
       DateTime: new Date().toLocaleString(),
-      Text: "Hej hej!"
-      }] */
+      Text: "Hej hej! hkadfhsk hfakskf  hkfahka fhahkhfakhfk ahkfahks hdashkhfsf hasfhkaf h afhkafh ak ahhjdhajhsah  dhajdhsaj d hajhdjd ahj"
+      },
+      {
+        User: "Johanna",
+        DateTime: new Date().toLocaleString(),
+        Text: "Hej hej!"
+        }] */
 
-useEffect(() => {
-  getData()
-}, [])
+  useEffect(() => {
+    getData()
+  }, [])
 
-async function getData() {
-const response = await fetch(url)
-const data = await response.json()
-console.log(data)
-setDataList(data);
-}
-
-function handleClick(e) {
-  e.preventDefault()
-  let message = {
-    User: username,
-    Text: messageText,
+  async function getData() {
+    const response = await fetch(url)
+    const data = await response.json()
+    console.log(data)
+    setDataList(data);
   }
-  addNewPost(message)
-}
 
-function goToComments(e, Id) {
-  e.preventDefault();
-  setCommentsSection(<Comments id={Id}/>) 
-  setShowComments(true)
-  setactivePost(Id)
-}
-
-async function addNewPost(message) {
-  await fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(message),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
+  function handleClick(e) {
+    e.preventDefault()
+    let message = {
+      User: username,
+      Text: messageText,
     }
-  })
-  getData();
-}
+    addNewPost(message)
+  }
+
+  function goToComments(e, Id) {
+    e.preventDefault();
+    setCommentsSection(<Comments id={Id} />)
+    setShowComments(true)
+    setactivePost(Id)
+  }
+
+  async function addNewPost(message) {
+    await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(message),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      }
+    })
+    getData();
+  }
 
   return (
 
@@ -76,52 +77,44 @@ async function addNewPost(message) {
 
     <div className="App">
       <header> <h1>I want a Gnu</h1></header>
-      <main> 
+      <main>
         <section className="main-container">
           <section className="friends">
-         <ul>
-           <li>Kompis 1</li>
-           <li>Kompis 2</li>
-           <li>Kompis 2</li>
-           <li>Kompis 2</li>
-           <li>Kompis 3</li>
-           <li>Kompis 3</li>
-         </ul> 
-        
-        </section>
+            <Friends/>
+          </section>
 
-        <section className="messages">
-          { dataList? dataList.map(post => 
-            <article key={post.postid} >
-              <div className="header">
-              <h4 className="user">{post.User} said:</h4>
-              <h4>{post.DateTime}</h4>
-            
-              </div>
-              <p>{post.Text}</p>
-              <section className="reaction-container">
-              <button>Reply</button>
+          <section className="messages">
+            {dataList ? dataList.map(post =>
+              <article key={post.postid} >
+                <div className="header">
+                  <h4 className="user">{post.User} said:</h4>
+                  <h4>{post.DateTime}</h4>
 
-              <button className={activePost===post.postid? "active-post":null} onClick={(e) => goToComments(e, post.postid) }>See comments</button>
-              </section>
-              {showComments && activePost===post.postid? commentsSection : null}
+                </div>
+                <p>{post.Text}</p>
+                <section className="reaction-container">
+                  <button>Reply</button>
+
+                  <button className={activePost === post.postid ? "active-post" : null} onClick={(e) => goToComments(e, post.postid)}>See comments</button>
+                </section>
+                {showComments && activePost === post.postid ? commentsSection : null}
+              </article>
+            )
+              : 'oops kan inte nå api'}
+
+
+            <article className="new-message">
+              <form>
+                <input type="text" placeholder={"Namn"} className="input-name" onChange={e => setUsername(e.target.value)} />
+                <textarea placeholder="Ditt meddelande..." className="input-text" onChange={e => setMessageText(e.target.value)} />
+                <button type="button" className="btn" onClick={(e) => handleClick(e)}>Send message</button>
+              </form>
             </article>
-          )
-         : 'oops kan inte nå api'}
 
-
-         <article className="new-message">
-         <form> 
-          <input type="text" placeholder={"Namn"} className="input-name" onChange={e => setUsername(e.target.value)}/> 
-          <textarea placeholder="Ditt meddelande..."  className="input-text"onChange={e => setMessageText(e.target.value)}/> 
-          <button type="button" className="btn" onClick={(e)=>handleClick(e)}>Send message</button>
-        </form> 
-        </article>
-        
+          </section>
         </section>
-          </section> 
-        
-       
+
+
       </main>
     </div>
   );
