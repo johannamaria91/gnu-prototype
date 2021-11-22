@@ -1,6 +1,7 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Discussion from './components/Discussion';
+import CreateTopicpage from './components/CreateTopicpage';
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,7 +13,8 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/disc" element={<Discussion/>} />
+         {/* <Route exact path="/" element={<CreateTopicpage/>}/>*/}
+          <Route path="/disc" element={<Discussion/>}/>
         </Routes>
       </div>
     </Router>
