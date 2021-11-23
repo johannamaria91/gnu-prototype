@@ -1,12 +1,15 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import NavBar from '../NavBar/NavBar';
+import Overlay from './Overlay';
+import './overlay.css'
+
 
 function CreateNewTopicPage (){
-  const [topic, setmakeNewTopic] = useState('bananer')
-  const [description, setdiscriptionOfTopic] = useState('i love mi bannanas')
   const [topicData, setTopicData] = useState ([])
   const url = 'http://localhost:3363/api/posts'
+  const [showOverlay, setShowOverlay] = useState(false)
 
     useEffect(() => {
         fetchData()
@@ -19,28 +22,19 @@ function CreateNewTopicPage (){
         setTopicData(topicResponse)
         }
 
-    function handleClick(e) {
-        e.preventDefault()
-        let topicData = {
-          User: topic,
-          Text: description,
-        }
-        addNewPost(topicData)
-      }
-      
-      async function addNewPost(topicData) {
-        await fetch(url, {
-          method: 'POST',
-          body: JSON.stringify(topicData),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
+        const close = () => {
+          setShowOverlay(false)
           }
-        })
-        fetchData();
-      }
+
 
     return (
         <div className="mainContainer-NewTopic">
+          <NavBar/>
+          {showOverlay? <Overlay fetchData={fetchData} close={close}/> :  <div className="inputWrapper">
+             <input className="newTopic" type="text" placeholder={"Post something"} onClick={()=>setShowOverlay(true)} /> 
+          </div>  }
+         
+          
           <Link to="/disc">
             <section className="discussions-main-section">
                 <div className="friends-topics-div">
@@ -57,11 +51,7 @@ function CreateNewTopicPage (){
             </section>
           </Link>
 
-            <section className="makeNewTopic-section">
-                <input type="text" placeholder={"Topic"} onChange={e => setmakeNewTopic(e.target.value)}/> 
-                <input type="text" placeholder="Ditt meddelande..."  onChange={e => setdiscriptionOfTopic(e.target.value)}/> 
-                <button type="button" onClick={(e)=>handleClick(e)}>create new topic</button>
-            </section>
+           
         </div>
     )
 }
