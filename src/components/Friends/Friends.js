@@ -1,5 +1,4 @@
 import "./Friends.css"
-import { useState, useEffect} from 'react'
 import Dropdown from './Dropdown'
 
 const Friends = () => {

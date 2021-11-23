@@ -1,60 +1,70 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import './overlay.css'
 
 
 const Overlay = (props) => {
 
-    const [topic, setmakeNewTopic] = useState('bananer')
-    const [description, setdiscriptionOfTopic] = useState('i love mi bannanas')
-    const url = 'http://localhost:3363/api/posts'
+    // const [topic, setmakeNewTopic] = useState('bananer')
+    // const [description, setdiscriptionOfTopic] = useState('i love mi bannanas')
+    // const [topic, setmakeNewTopic] = useState('')
+    const [description, setdiscriptionOfTopic] = useState('')
+    const [headline, setHeadline] = useState('')
+    const [user, setUser] = useState('default user')
+    const [topicData, setTopicData] = useState([])
+    const url = 'http://localhost:3363/api/discussions'
 
     useEffect(() => {
         fetchData()
-      }, [])
+    }, [])
+
 
     function handleClick(e) {
         e.preventDefault()
         let topicData = {
-          User: topic,
-          Text: description,
+
+            headline: headline,
+            discussiontext: description,
+            user: user,
+
         }
         addNewPost(topicData)
-      }
+    }
 
-      async function addNewPost(topicData) {
+    async function addNewPost(topicData) {
         await fetch(url, {
-          method: 'POST',
-          body: JSON.stringify(topicData),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          }
+            method: 'POST',
+            body: JSON.stringify(topicData),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            }
         })
         fetchData();
         close()
-      }
+    }
 
-      function fetchData() {
-          props.fetchData()
-      }
 
-      
+    function fetchData() {
+        props.fetchData()
+    }
 
-        const close = () => {
-            props.close()
-            }
- 
+
+
+    const close = () => {
+        props.close()
+    }
+
     return (
-    
+
 
         <div className="newTopicWrapper" >
-         <section className="makeNewTopic"> 
+            <section className="makeNewTopic">
                 <button className="close" onClick={close}>✖️</button>
-                <input type="text" placeholder={"Topic"} onChange={e => setmakeNewTopic(e.target.value)}/> 
-                <textarea rows="4" type="text" placeholder="Ditt meddelande..."  onChange={e => setdiscriptionOfTopic(e.target.value)}/> 
-                <button type="button" onClick={(e)=>handleClick(e)}>create new topic</button>
-          </section>
+                <input type="text" placeholder={"Headline"} onChange={e => setHeadline(e.target.value)} />
+                <textarea rows="4" type="text" placeholder="Ditt meddelande..." onChange={e => setdiscriptionOfTopic(e.target.value)} />
+                <button type="button" onClick={(e) => handleClick(e)}>create new topic</button>
+            </section>
         </div>
-    
+
     )
 }
 
