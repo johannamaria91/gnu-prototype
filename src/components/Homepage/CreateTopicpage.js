@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
 import Overlay from './Overlay';
 import './overlay.css'
+import './homepage.css'
+import share from '../../icons/share.svg'
 
 
 function CreateNewTopicPage() {
@@ -36,23 +38,33 @@ function CreateNewTopicPage() {
       </div>}
 
 
-      
-        <section className="discussionsMain">
-          <div className="friendsTopics">
 
-            {topicData ? topicData.map(topic =>
-            <Link className="topicUser" to={`/discussions/${topic.discussionid}`}> 
-              <div  key={topic.discussionid}>
-                <h4 className="createDate">{topic.createddate}</h4>
+      <section className="discussionsMain">
+        <div className="friendsTopics">
+
+          {topicData ? topicData.map(topic =>
+            <Link className="topicUser" to={`/discussions/${topic.discussionid}`}>
+              <div key={topic.discussionid + topic.user}>
+                <div className="userInfo"> 
+                  <figure>
+                    <img />
+                  </figure> 
+                  <h5 className="userName">{topic.user}</h5></div>
+                <div className="topicContentContainer">
                 <h4 className="topicDescription">{topic.headline}</h4>
                 <p className="text">{topic.discussiontext}</p>
-                <h4 className="userName">By: {topic.user} </h4>
+                </div>
+                <div className="topicInfoContainer">
+                  <h4 className="createDate">{topic.createddate.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
+                  <h4>10 posts on this topic</h4>
+                  <img src={share}/>
+                </div>
               </div>
             </Link>
-            ) : 'oops kan inte nå api'}
-          </div>
-        </section>
-     
+          ) : 'oops kan inte nå api'}
+        </div>
+      </section>
+
 
 
     </div>
