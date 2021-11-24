@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 :root {
-    --border-color: rgb(136, 128, 135)
+    --border-color: rgb(136, 128, 135);
+    font-family: 'Poppins', sans-serif;
 }
 
 .newTopicWrapper {
@@ -77,32 +80,4 @@
 background: linear-gradient(90deg, rgba(146,135,154,1) 0%, rgba(72,88,164,1) 44%, rgba(0,19,111,1) 100%);
 }
 
-.discussionsMain div a{
-    text-decoration: none;
-    color:black;
-}
 
-.friendsTopics {
-    padding: 2em;
-    display:grid;
-    grid-template-columns: repeat( 3, 6fr);
-    grid-template-rows: repeat( 1, 2fr);
-  
-}
-
-.topicUser {
-    padding: 1em;
-}
-
-.createDate {
-    font-size:0.5em;
-    color: var(--border-color)
-}
-
-.userName {
-    font-size:1em;
-}
-
-p .text {
-    margin-bottom:auto;
-}
