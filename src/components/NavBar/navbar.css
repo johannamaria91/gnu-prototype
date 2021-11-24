@@ -1,0 +1,19 @@
+
+.navbar {
+    display: flex;
+    justify-content: center;
+}
+ .navbar ul {
+     display: flex;
+     flex-direction: row;
+     justify-content: flex-end;
+     background-color:salmon
+ }
+
+ li {
+     padding: 1em;
+ }
+
+ li:hover {
+     text-decoration:underline;
+ }

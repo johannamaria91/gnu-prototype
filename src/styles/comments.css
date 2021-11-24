@@ -1,0 +1,23 @@
+
+
+.comments {
+    padding:0;
+  }
+  
+.comments article{
+    border-bottom:none;
+    padding:1em 0.5em ;
+    font-size: .8em;
+    background-color: rgb(165, 103, 4);
+  }
+  
+.footer button{
+    background: none;
+    border: none;
+    font-size: .8em;
+    padding: 0;
+  }
+
+  .hide{
+    display: none;
+  }
