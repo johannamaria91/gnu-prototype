@@ -1,6 +1,10 @@
 
 .discussionMain-container{
-    text-align: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
 }
 body {
     --off-white: whitesmoke;

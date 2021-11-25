@@ -2,6 +2,12 @@
 
 .discussionsMain {
     width: fit-content;
+    max-width: 60rem;
+}
+.mainContainer-NewTopic{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .discussionsMain div a{
@@ -10,11 +16,9 @@
 }
 
 .friendsTopics {
+    display: flex;
+    flex-wrap: wrap;
     padding: 2em;
-    display:grid;
-    grid-template-columns: repeat( 3, 6fr);
-/*     grid-template-rows: repeat( 1, 2fr);
- */   
     background: #f6f6f6;
      width: fit-content;
     grid-auto-rows: 1fr;
@@ -30,7 +34,6 @@
     display:flex;
     flex-direction: column;
     justify-content: space-between;
-    
 }
 
 .topicUser {
@@ -57,7 +60,7 @@
 .friendsTopics .userName {
     font-size:1em;
     padding: 0 .4em;
- margin-block-start: 0;
+    margin-block-start: 0;
     margin-block-end: 0;
     align-self: center;
     font-size: 14px;
