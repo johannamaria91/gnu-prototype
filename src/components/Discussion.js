@@ -4,7 +4,6 @@ import Comments from './Comments';
 import "../styles/discussion.css";
 import Friends from './Friends/Friends'
 import { useParams } from 'react-router-dom'
-import NavBar from './NavBar/NavBar';
 
 
 function Discussion() {
