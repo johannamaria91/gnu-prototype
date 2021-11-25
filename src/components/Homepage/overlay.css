@@ -87,6 +87,7 @@ background: linear-gradient(90deg, rgba(146,135,154,1) 0%, rgba(72,88,164,1) 44%
     display:grid;
     grid-template-columns: repeat( 3, 6fr);
     grid-template-rows: repeat( 1, 2fr);
+    background:rgba(247, 245, 245, 0.67)
   
 }
 
