@@ -6,6 +6,7 @@ import Overlay from './Overlay';
 import './overlay.css'
 import './homepage.css'
 import share from '../../icons/share.svg'
+import trash from '../../icons/trash.svg'
 
 
 function CreateNewTopicPage() {
@@ -24,11 +25,24 @@ function CreateNewTopicPage() {
     setTopicData(topicResponse)
   }
 
+  async function deleteTopic(e, id) {
+    e.preventDefault()
+    await fetch (url+`/${id}`, {
+      method: 'DELETE',
+      body: {id:id},
+      headers: {
+        "Content-type": "application/json",
+      }
+    });
+      fetchData()
+  }
+
   const close = () => {
     setShowOverlay(false)
   }
 
 
+ 
 
   return (
     <div className="mainContainer-NewTopic">
@@ -46,13 +60,20 @@ function CreateNewTopicPage() {
             <Link className="topicUser" to={`/discussions/${topic.discussionid}`}>
               <div key={topic.discussionid + topic.user}>
                 <div className="userInfo"> 
+                
                   <figure>
                     <img />
                   </figure> 
-                  <h5 className="userName">{topic.user}</h5></div>
+                  <h5 className="userName">{topic.user}</h5>
+                  <button onClick={(e)=>deleteTopic(e, topic.discussionid)}><img src={trash}/></button>
+
+                  </div>
+
                 <div className="topicContentContainer">
                 <h4 className="topicDescription">{topic.headline}</h4>
-                <p className="text">{topic.discussiontext}</p>
+                  <div className={topic.discussiontext.length>60? "gradient": ''}>
+                    <p className="text">{topic.discussiontext}</p>
+                  </div>
                 </div>
                 <div className="topicInfoContainer">
                   <h4 className="createDate">{topic.createddate.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
