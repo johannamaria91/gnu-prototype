@@ -11,7 +11,6 @@ body {
     --primary-color: rgb(231, 143, 28);
     --primary-text-color: rgb(223, 223, 223);
     --line-color: rgb(59, 58, 58);
-    margin: 0 10em;
   }
   
   .main-container {
