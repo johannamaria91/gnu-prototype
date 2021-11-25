@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.discussionsMain {
+    width: fit-content;
+}
+
+.discussionsMain div a{
+    text-decoration: none;
+    color:black;
+}
+
+.friendsTopics {
+    padding: 2em;
+    display:grid;
+    grid-template-columns: repeat( 3, 6fr);
+/*     grid-template-rows: repeat( 1, 2fr);
+ */   
+    background: #f6f6f6;
+     width: fit-content;
+    grid-auto-rows: 1fr;
+}
+
+.friendsTopics> a>div {
+    background: #e5e5e5;
+    padding: 2em;
+    border-radius: .5em;
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
+
+.topicUser {
+    padding: 1em;
+}
+
+
+
+.userInfo {
+    display: flex; 
+    flex-direction: row;
+    margin: 0 0 .7em;
+}
+
+.userInfo figure {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 1em;
+    background: salmon;
+    margin: 0;
+  
+}
+
+.friendsTopics .userName {
+    font-size:1em;
+    padding: 0 .4em;
+ margin-block-start: 0;
+    margin-block-end: 0;
+    align-self: center;
+    font-size: 14px;
+}
+
+.friendsTopics .text {
+    font-size: .8em;
+
+}
+
+.topicDescription {
+    font-weight: 600;
+    font-size: 20px
+}
+
+p .text {
+    margin-bottom:auto;
+}
+
+.topicInfoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.topicInfoContainer h4 {
+    font-size:0.6em;
+    color: var(--border-color);
+    margin-bottom: 0;
+    align-self: center;
+    text-align: center;
+}
