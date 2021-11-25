@@ -47,16 +47,17 @@ function CreateNewTopicPage() {
   return (
     <div className="mainContainer-NewTopic">
       <NavBar />
-      {showOverlay ? <Overlay fetchData={fetchData} close={close} /> :
-      <div className="inputWrapper">
-        <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
-      </div>}
 
 
 
       <section className="discussionsMain">
+        {showOverlay ? <> <div className="inputWrapper">
+          <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
+        </div> <Overlay fetchData={fetchData} close={close} /> </> :
+        <div className="inputWrapper">
+          <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
+        </div>}
         <div className="friendsTopics">
-
           {topicData ? topicData.map(topic =>
             <Link className="topicUser" to={`/discussions/${topic.discussionid}`}>
               <div key={topic.discussionid + topic.user}>
@@ -67,7 +68,6 @@ function CreateNewTopicPage() {
                   </figure> 
                   <h5 className="userName">{topic.user}</h5>
                   <button onClick={(e)=>deleteTopic(e, topic.discussionid)}><img src={trash}/></button>
-
                   </div>
 
                 <div className="topicContentContainer">

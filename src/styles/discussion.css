@@ -2,9 +2,8 @@
 .discussionMain-container{
   text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  justify-self: center;
 }
 body {
     --off-white: whitesmoke;
@@ -18,6 +17,8 @@ body {
    flex-direction: row;
    background: var(--primary-color);
    padding: 0;
+   max-width: 50rem;
+   margin:auto auto ;
   }
   main section {
   text-align: left;
