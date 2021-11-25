@@ -4,6 +4,7 @@ import Comments from './Comments';
 import "../styles/discussion.css";
 import Friends from './Friends/Friends'
 import { useParams } from 'react-router-dom'
+import NavBar from './NavBar/NavBar';
 
 
 function Discussion (){
@@ -62,47 +63,43 @@ function Discussion (){
     
         <div className="discussionMain-container">
           <header> <h1>I want a Gnu</h1></header>
+          <NavBar/>
           <main> 
             <section className="main-container">
               <section className="friends">
-             <ul>
-               <Friends/>
-             </ul> 
-            
-            </section>
+                <Friends/>
+              </section>
 
-            <section className="messages">
+              <section className="messages">
 
-              {  dataList?  dataList.posts.map(post => 
-                <article key={post.postid} >
-                  <div className="header">
-                  <h4 className="user">{post.user} said:</h4>
-                  <h4>{post.dateTime}</h4>
-                
-                  </div>
-                  <p>{post.text}</p>
-                  <section className="reaction-container">
-    
-                  <button className={activePost===post.postid? "active-post":null} onClick={(e) => goToComments(e, post.postid) }>Comments</button>
-                  </section>
-                  {showComments && activePost===post.postid? commentsSection : null}
-                </article>
-              )
-             : 'oops kan inte nå api'}
-    
-    
-             <article  className={showComments?"hide": "new-message" }>
-             <form> 
-              <input type="text" placeholder={"Namn"} className="input-name" onChange={e => setUsername(e.target.value)}/> 
-              <textarea placeholder="Ditt meddelande..."  className="input-text"onChange={e => setMessageText(e.target.value)}/> 
-              <button type="button" className="btn" onClick={(e)=>handleClick(e)}>Send message</button>
-            </form> 
-            </article>
-            
+                {  dataList?  dataList.posts.map(post => 
+                  <article key={post.postid} >
+
+                    <div className="header">
+                      <h4 className="user">{post.user} said:</h4>
+                      <h4>{post.dateTime}</h4>
+                    </div>
+
+                    <p>{post.text}</p>
+
+                    <section className="reaction-container">
+                      <button className={activePost===post.postid? "active-post":null} onClick={(e) => goToComments(e, post.postid) }>Comments</button>
+                    </section>
+
+                    {showComments && activePost===post.postid? commentsSection : null}
+                  </article>
+                )
+              : 'oops kan inte nå api'}
+      
+              <article  className={showComments?"hide": "new-message" }>
+                <form> 
+                  <input type="text" placeholder={"Namn"} className="input-name" onChange={e => setUsername(e.target.value)}/> 
+                  <textarea placeholder="Ditt meddelande..."  className="input-text"onChange={e => setMessageText(e.target.value)}/> 
+                  <button type="button" className="btn" onClick={(e)=>handleClick(e)}>Send message</button>
+                </form> 
+              </article>
             </section>
-            
-              </section> 
-           
+           </section> 
           </main>
         </div>
       );
