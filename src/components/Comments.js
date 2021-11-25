@@ -108,7 +108,7 @@ function Comments(props) {
         
           <article key={comment.commentid}><div className="border-test">
             <div>
-              <div className="border-placeholder"></div>
+              <div className="border-node"></div>
               <div className="content">
                 <div className="header">
                   <h4 className="user">{comment.user} said:</h4>

@@ -42,7 +42,6 @@
   }
 
   
- 
   
 /* IF THERE ARE MORE */
 
@@ -51,9 +50,7 @@
     flex-direction: row;
     border-left: 3px solid red;
     width: 100%;
-    
   }
-
 
  /*  LAST CHILD */
   .comments .existing-comments article:last-child .border-test{
@@ -62,15 +59,19 @@
     border-left: none;
     margin-left: 0px;
     width: 100%;
-    
   }
 
-  .comments  .existing-comments article:last-child .border-placeholder{
+  .comments .existing-comments article:last-child .border-node{
     border-bottom:3px solid red;
     border-left: 3px solid red;
     width: 1.3em;
     height: 80%;
-    
+  }
+
+  .comments .existing-comments .border-node{
+    border-bottom:3px solid red;
+    width: 1.3em;
+    height: 80%;
   }
 
   
