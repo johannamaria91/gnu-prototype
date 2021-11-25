@@ -1,13 +1,17 @@
-
 .navbar {
     display: flex;
     justify-content: center;
 }
- .navbar ul {
-     display: flex;
-     flex-direction: row;
-     justify-content: flex-end;
-     background-color:salmon
+.navbar nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color:salmon;
+    border:solid;
+    border-radius: 50px;
+    width: 100%;
+    max-width: 40rem;
+    min-width: 20rem;
  }
 
  li {
@@ -16,4 +20,9 @@
 
  li:hover {
      text-decoration:underline;
+     color: white;
+ }
+ a{
+     text-decoration: none;
+     color: black;
  }
