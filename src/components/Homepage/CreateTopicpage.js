@@ -77,7 +77,7 @@ function CreateNewTopicPage() {
                 </div>
                 <div className="topicInfoContainer">
                   <h4 className="createDate">{topic.createddate.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
-                  <h4>10 posts on this topic</h4>
+                  <h4>{topic.numberOfPosts} posts on this topic</h4>
                   <img src={share}/>
                 </div>
               </div>
