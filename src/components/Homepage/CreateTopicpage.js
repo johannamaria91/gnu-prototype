@@ -31,15 +31,12 @@ function CreateNewTopicPage() {
   return (
     <div className="mainContainer-NewTopic">
       <NavBar />
-      {showOverlay ? <Overlay fetchData={fetchData} close={close} /> : <div className="inputWrapper">
+      {showOverlay ? <Overlay fetchData={fetchData} close={close} /> :
+      <div className="inputWrapper">
         <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
       </div>}
-
-
-      
         <section className="discussionsMain">
           <div className="friendsTopics">
-
             {topicData ? topicData.map(topic =>
             <Link className="topicUser" to={`/discussions/${topic.discussionid}`}> 
               <div  key={topic.discussionid}>
