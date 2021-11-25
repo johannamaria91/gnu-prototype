@@ -44,44 +44,18 @@ function CreateNewTopicPage() {
     setShowOverlay(false)
   }
 
-function filterTopics(topicList, searchTerm) {
-    return topicList.filter((data)  => {
-      if( searchTerm === "") {
-          return true
-      } else if ( data.headline.toLowerCase().includes(searchTerm.toLowerCase())) {
-          return data
-      }
-      
-    })
-}
-
- function search(s) {
-   setSearchTerm(s)
- }
- 
   return (
     <div className="mainContainer-NewTopic">
-
-      <NavBar search={search} />
-      {showOverlay ?
-    <>
-     <div className="inputWrapper">
-        <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
-     </div> 
-     <Overlay fetchData={fetchData} close={close} />
-    </> 
-  : <div className="inputWrapper">
-        <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
-      </div>}
-
-            {filteredTopics ? filteredTopics.map(topic =>
-            <Link className="topicUser" to={`/discussions/${topic.discussionid}`}> 
-              <div  key={topic.discussionid}>
-                <h4 className="createDate">{topic.createddate}</h4>
+      <NavBar />
 
       <section className="discussionsMain">
+        {showOverlay ? <> <div className="inputWrapper">
+          <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
+        </div> <Overlay fetchData={fetchData} close={close} /> </> :
+        <div className="inputWrapper">
+          <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
+        </div>}
         <div className="friendsTopics">
-
           {topicData ? topicData.map(topic =>
             <Link className="topicUser" to={`/discussions/${topic.discussionid}`}>
               <div key={topic.discussionid + topic.user}>

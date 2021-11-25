@@ -9,7 +9,6 @@ const Friends = () => {
              <div className="friendsDiv">
               <div>Kompis 1</div>
               <Dropdown/>
-              
             </div>
         </>
     )

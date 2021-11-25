@@ -1,13 +1,15 @@
 
 .discussionMain-container{
-    text-align: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 body {
     --off-white: whitesmoke;
     --primary-color: rgb(231, 143, 28);
     --primary-text-color: rgb(223, 223, 223);
     --line-color: rgb(59, 58, 58);
-    margin: 0 10em;
   }
   
   .main-container {
@@ -15,6 +17,8 @@ body {
    flex-direction: row;
    background: var(--primary-color);
    padding: 0;
+   max-width: 50rem;
+   margin:auto auto ;
   }
   main section {
   text-align: left;
@@ -150,7 +154,6 @@ body {
     font-size: .8em;
     padding: 0;
   }
-  
    .active-post{
     background-color: darkgreen;
     color: rgb(214, 207, 207);

@@ -117,12 +117,10 @@ function Comments(props) {
                 {editActive && commentActive === comment.commentid
                   ? <textarea value={messageText} className="form-control z-depth-1" onChange={e => setMessageText(e.target.value)} />
                   : <p>{comment.comment_text}</p>}
-
                 <div className="footer text-end">
                   {editActive && commentActive === comment.commentid
                     ? <button type="button" onClick={(e) => SendEdit(e, comment)}>Done</button>
                     : <><button type="button" onClick={(e) => handleEdit(e, comment)}>Edit&nbsp;</button>
-
                       {deleteActive && deletecommentActive === comment.commentid
                         ? <button type="button" onClick={(e) => handleDelete(e, comment.commentid)}>Confirm</button>
                         : <button type="button" onClick={(e) => setActiveDelete(e, comment)}>Delete</button>
@@ -135,19 +133,15 @@ function Comments(props) {
        ) : 'no comments for this post'}
       </section>
       
-
       <form className={!showForm ? "hide" : "newComment-form"}>
-
         <label htmlFor="userName">User</label>
         <input value={username} type="text" id="userName" className="form-control form-control-sm" onChange={e => setUsername(e.target.value)} />
-
         <div className="form-group shadow-textarea">
           <label htmlFor="commentArea">Message</label>
           <textarea value={messageText} className="form-control z-depth-1" id="commentArea" rows="2" onChange={e => setMessageText(e.target.value)}></textarea>
         </div>
         <button type="button" className="btn border border-1 mt-2" onClick={(e) => handleClick(e)}>Send message</button>
         <button type="button" className="btn border border-1 mt-2" onClick={() => cancel()}>Cancel</button>
-
       </form>
     </section>
 

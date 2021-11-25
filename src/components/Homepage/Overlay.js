@@ -17,7 +17,6 @@ const Overlay = (props) => {
         fetchData()
     }, [])
 
-
     function handleClick(e) {
         e.preventDefault()
 
@@ -48,20 +47,15 @@ const Overlay = (props) => {
         close()
     }
 
-
     function fetchData() {
         props.fetchData()
     }
-
-
 
     const close = () => {
         props.close()
     }
 
     return (
-
-
         <div className="newTopicWrapper" >
             <section className="makeNewTopic">
                 <button className="close" onClick={close}>✖️</button>
@@ -70,7 +64,6 @@ const Overlay = (props) => {
                 <button type="button" onClick={(e) => handleClick(e)}>create new topic</button>
             </section>
         </div>
-
     )
 }
 
