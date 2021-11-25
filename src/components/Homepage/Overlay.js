@@ -20,14 +20,20 @@ const Overlay = (props) => {
 
     function handleClick(e) {
         e.preventDefault()
-        let topicData = {
 
+        let topicData = {
             headline: headline,
             discussiontext: description,
             user: user,
-
         }
-        addNewPost(topicData)
+
+        if ( headline === "" || description === "" ) {
+            alert("Fill the missing fields please")
+        } 
+        else {
+            addNewPost(topicData)
+        }
+
     }
 
     async function addNewPost(topicData) {
