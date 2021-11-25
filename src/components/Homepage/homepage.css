@@ -19,6 +19,17 @@
      width: fit-content;
     grid-auto-rows: 1fr;
 }
+.friendsTopics button {
+    border: none;
+    background: none;
+    align-self: center;
+    padding: 0;
+    font-size: .7em;
+    flex-grow:1;
+    text-align: right;
+    
+}
+
 
 .friendsTopics> a>div {
     background: #e5e5e5;
@@ -30,14 +41,23 @@
     display:flex;
     flex-direction: column;
     justify-content: space-between;
-    
+}
+
+.gradient p {
+    background-color: #f3ec78;
+    background-image: linear-gradient(180deg, black,  #e6e6e6);
+    background-size: 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+    max-height: 4em;
 }
 
 .topicUser {
     padding: 1em;
 }
-
-
 
 .userInfo {
     display: flex; 
