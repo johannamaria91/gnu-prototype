@@ -44,9 +44,24 @@ function CreateNewTopicPage() {
     setShowOverlay(false)
   }
 
+  function search(s) {
+    setSearchTerm(s)
+  }
+
+  function filterTopics(topicList, searchTerm) {
+    return topicList.filter((data)  => {
+      if( searchTerm === "") {
+          return true
+      } else if ( data.headline.toLowerCase().includes(searchTerm.toLowerCase())) {
+          return data
+      }
+      
+    })
+}
+
   return (
     <div className="mainContainer-NewTopic">
-      <NavBar />
+      <NavBar search={search}/>
 
       <section className="discussionsMain">
         {showOverlay ? <> <div className="inputWrapper">
@@ -56,7 +71,7 @@ function CreateNewTopicPage() {
           <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
         </div>}
         <div className="friendsTopics">
-          {topicData ? topicData.map(topic =>
+          {filteredTopics ? filteredTopics.map(topic =>
             <Link className="topicUser" to={`/discussions/${topic.discussionid}`}>
               <div key={topic.discussionid + topic.user}>
                 <div className="userInfo"> 

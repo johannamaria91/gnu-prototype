@@ -68,7 +68,7 @@
   .comments  .existing-comments article:last-child .border-placeholder{
     border-bottom:3px solid red;
     border-left: 3px solid red;
-    width: 1.2em;
+    width: 1.3em;
     height: 80%;
     
   }
