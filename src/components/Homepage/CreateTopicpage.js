@@ -61,9 +61,16 @@ function filterTopics(topicList, searchTerm) {
  
   return (
     <div className="mainContainer-NewTopic">
+
       <NavBar search={search} />
-      
-      {showOverlay ? <Overlay fetchData={fetchData} close={close} /> : <div className="inputWrapper">
+      {showOverlay ?
+    <>
+     <div className="inputWrapper">
+        <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
+     </div> 
+     <Overlay fetchData={fetchData} close={close} />
+    </> 
+  : <div className="inputWrapper">
         <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
       </div>}
 

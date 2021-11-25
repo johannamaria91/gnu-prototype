@@ -34,6 +34,7 @@ body {
     margin-block-end: 0;
   }
   
+  
   .messages {
     background: var(--primary-color);
     grid-column: 2 / span 1;
@@ -54,12 +55,47 @@ body {
   }
   
   .messages article {
-    padding: 1em;
+    padding: 0;
     color: var(--primary-text-color);
-    margin: 0 0 .5em 0;
+    margin: 0 0 0 0;
     border-bottom: 1px solid var(--line-color);
     width: 100%;
+    display: flex;
+    flex-direction: column;
    
+  }
+
+  .messages article > div {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .messages .content {
+    padding: 0 0 0 1em;
+  }
+
+  .messages .border-container {
+    display: flex;
+    flex-direction: row;
+    border-left: 3px solid red;
+    width: 100%;
+  }
+
+  .messages .border-placeholder{
+    border-bottom:3px solid red;
+    width: 1em;
+    height: 80%;
+    
+  }
+
+  .messages .border-container:nth-last-child(-n+2) {
+    border-left: none;
+
+  }
+
+  .messages .border-container:nth-last-child(-n+2) .border-placeholder {
+    border-left: 3px solid red;
+    width: 2.6em;
   }
   
   .messages .new-message {
@@ -105,6 +141,7 @@ body {
     justify-content: left;
     padding: .5em 0;
     justify-content: space-between;
+    
   }
   
   .reaction-container button{
