@@ -14,6 +14,8 @@ body {
     --primary-text-color: black;
     --line-color: rgb(59, 58, 58);
     --secondary-color: salmon;
+    --secondary-bg-color: rgb(252, 198, 192);
+    
   }
   
   .main-container {

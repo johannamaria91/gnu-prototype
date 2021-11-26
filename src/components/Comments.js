@@ -110,10 +110,16 @@ function Comments(props) {
             <div>
               <div className="border-node"></div>
               <div className="content">
-                <div className="header">
-                  <h4 className="user">{comment.user} said:</h4>
-                  <h4>{comment.date}</h4>
-                </div>
+                <header>
+                <div className="user-info">
+                          <figure>
+                            <img />
+                          </figure>
+                          <h5 className="user-name">{comment.user}</h5>
+                        </div>
+                  
+                  <h4>{comment.date.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
+                </header>
                 {editActive && commentActive === comment.commentid
                   ? <textarea value={messageText} className="form-control z-depth-1" onChange={e => setMessageText(e.target.value)} />
                   : <p>{comment.comment_text}</p>}
