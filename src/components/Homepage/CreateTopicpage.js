@@ -73,7 +73,10 @@ function CreateNewTopicPage() {
           {filteredTopics ? filteredTopics.map(topic =>
             <Link className="topicUser" to={`/discussions/${topic.discussionid}`} state={{text: topic.discussiontext, 
             headline: topic.headline, 
-            date: topic.createddate}} >
+            date: topic.createddate,
+            user: topic.user,
+            numberOfPosts: topic.numberOfPosts
+            }} >
               <div key={topic.discussionid + topic.user}>
                 <div className="userInfo"> 
                   <figure>
