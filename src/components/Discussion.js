@@ -3,10 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Comments from './Comments';
 import "../styles/discussion.css";
 import Friends from './Friends/Friends'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 
 
-function Discussion() {
+function Discussion(props) {
   const [username, setUsername] = useState('')
   const [messageText, setMessageText] = useState('')
   const [dataList, setDataList] = useState()
@@ -16,12 +16,18 @@ function Discussion() {
   const [activePost, setactivePost] = useState(false)
   const [editActive, setEditActive] = useState(false)
   const [postActive, setPostActive] = useState('')
+  const [topicText, setTopicText] = useState()
+ let location = useLocation();
+ let topicInfo = location.state;
+ console.log(topicInfo)
+ console.log(location)
 
-
-  const { id } = useParams();
+  const { id} = useParams();
 
   useEffect(() => {
     getData()
+    
+    
   }, [id])
 
   async function getData() {
@@ -98,9 +104,11 @@ function Discussion() {
             </ul>
 
           </section>
-
+        
           <section className="messages">
-
+          <h5>{topicInfo.date.slice(0, 19).replace('T', ' ').slice(0, 16)}</h5>
+          <h3>{topicInfo.headline}</h3>
+          <h5>{topicInfo.text}</h5>
             {dataList ? dataList.posts.map(post =>
               <div className="border-container">
 
