@@ -16,13 +16,13 @@ function Discussion(props) {
   const [activePost, setactivePost] = useState(false)
   const [editActive, setEditActive] = useState(false)
   const [postActive, setPostActive] = useState('')
-  const [topicText, setTopicText] = useState()
+  const [deleteActivated, setDeleteActivated] = useState(false)
  let location = useLocation();
  let topicInfo = location.state;
  console.log(topicInfo)
  console.log(location)
 
-  const { id} = useParams();
+  const {id} = useParams();
 
   useEffect(() => {
     getData()
@@ -92,6 +92,25 @@ function Discussion(props) {
     setMessageText(post.text)
   }
 
+  async function deletePost(e, id) {
+    e.preventDefault()
+    await fetch (url+`posts/${id}`, {
+      method: 'DELETE',
+      body: {postid:id},
+      headers: {
+        "Content-type": "application/json",
+      }
+    });
+      getData()
+  }
+
+  function activateDelete(e, post) {
+    e.preventDefault()
+    setDeleteActivated(true)
+    setPostActive(post.postid)
+  }
+
+
   return (
 
     <div className="discussionMain-container">
@@ -106,9 +125,11 @@ function Discussion(props) {
           </section>
         
           <section className="messages">
+            <section className="topic-intro">
           <h5>{topicInfo.date.slice(0, 19).replace('T', ' ').slice(0, 16)}</h5>
           <h3>{topicInfo.headline}</h3>
           <h5>{topicInfo.text}</h5>
+          </section>
             {dataList ? dataList.posts.map(post =>
               <div className="border-container">
 
@@ -132,6 +153,10 @@ function Discussion(props) {
                     <section className="reaction-container">
 
                       <button className={activePost === post.postid ? "active-post" : null} onClick={(e) => goToComments(e, post.postid)}>Comments</button>
+                      {deleteActivated && postActive === post.postid 
+                      ? <button onClick={(e)=>deletePost(e, post.postid)}>Confirm delete</button>
+                      : <button onClick={(e) => activateDelete(e, post)}>Delete</button>
+ } 
 
                       {editActive && postActive === post.postid
                         ? <button type="button" onClick={(e) => sendEdit(e, post)}>Done</button>

@@ -2,7 +2,6 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
-import Search from '../NavBar/SearchField/Search';
 import Overlay from './Overlay';
 import './overlay.css'
 import './homepage.css'
@@ -81,7 +80,7 @@ function CreateNewTopicPage() {
                     <img />
                   </figure> 
                   <h5 className="userName">{topic.user}</h5>
-                  <button onClick={(e)=>deleteTopic(e, topic.discussionid)}><img src={trash}/></button>
+                  <button onClick={(e)=>deleteTopic(e, topic.discussionid)}><img alt="delete"src={trash}/></button>
                   </div>
                 <div className="topicContentContainer">
                 <h4 className="topicDescription">{topic.headline}</h4>
@@ -92,7 +91,7 @@ function CreateNewTopicPage() {
                 <div className="topicInfoContainer">
                   <h4 className="createDate">{topic.createddate.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
                   <h4>{topic.numberOfPosts} posts on this topic</h4>
-                  <img src={share}/>
+                  <img src={share} alt="share"/>
                 </div>
               </div>
             </Link>
