@@ -14,6 +14,10 @@
     align-self: flex-end;
 }
 
+p{
+    margin-block-end: 0rem;
+    margin-block-start: 0rem;
+}
 .newTopicWrapper {
     position: fixed;
       background-color: rgba(247, 245, 245, 0.67);
@@ -40,5 +44,8 @@
 .inputWrapper {
     display: flex;
     justify-content: center;
+}
+.newTopicWrapper .makeNewTopic .close{
+    align-self: flex-end;
 }
 

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Comments from './Comments';
 import "../styles/discussion.css";
 import Friends from './Friends/Friends'

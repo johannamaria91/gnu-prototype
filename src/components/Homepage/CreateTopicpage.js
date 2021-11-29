@@ -81,7 +81,7 @@ function CreateNewTopicPage() {
                   <h5 className="userName">{topic.user}</h5>
                 </div>
 
-                {showDeleteConfirm && activeTopic === topic.discussionid? <>
+                {showDeleteConfirm && activeTopic === topic.discussionid ? <>
                   <div className="delete-conferm-container">
                     <button onClick={() => openDeleteOverlay(topic)}><img alt="delete" src={trash} /></button>
                   </div> <DeleteTopic fetchData={fetchData} close={closeDeletion} topicid={activeTopic} /> </> :
@@ -89,28 +89,26 @@ function CreateNewTopicPage() {
                     <button onClick={() => openDeleteOverlay(topic)}><img alt="delete" src={trash} /></button>
                   </div>}
               </div>
-
-              <Link className="topicUser" to={`/discussions/${topic.discussionid}`} state={{
-                text: topic.discussiontext,
-                headline: topic.headline,
-                date: topic.createddate,
-                user: topic.user,
-                numberOfPosts: topic.numberOfPosts
-              }} >
-
-                <div className="topicContentContainer">
+              <div className="topicContentContainer">
+                <Link className="topicUser" to={`/discussions/${topic.discussionid}`} state={{
+                  text: topic.discussiontext,
+                  headline: topic.headline,
+                  date: topic.createddate,
+                  user: topic.user,
+                  numberOfPosts: topic.numberOfPosts
+                }} >
                   <h4 className="topicDescription">{topic.headline}</h4>
                   <div className={topic.discussiontext.length > 60 ? "gradient" : ''}>
                     <p className="text">{topic.discussiontext}</p>
                   </div>
-                </div>
+                </Link>
+              </div>
 
-                <div className="topicInfoContainer">
-                  <h4 className="createDate">{topic.createddate.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
-                  <h4>{topic.numberOfPosts} posts on this topic</h4>
-                  <img src={share} alt="share" />
-                </div>
-              </Link>
+              <div className="topicInfoContainer">
+                <h4 className="createDate">{topic.createddate.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
+                <h4>{topic.numberOfPosts} posts on this topic</h4>
+                <img src={share} alt="share" />
+              </div>
             </div>
           ) : 'oops kan inte nå api'}
         </div>

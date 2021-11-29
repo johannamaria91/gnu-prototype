@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+h4{
+    margin-block-end: 0rem;
+    margin-block-start: 0rem;
+    margin-bottom: 0.4rem;
+}
 
 .discussionsMain {
     width: fit-content;
@@ -37,10 +42,10 @@
 
 .topic-container{
     background: #e5e5e5;
-    padding: 2em;
+    padding: 1rem;
     border-radius: .5em;
     width: 19rem;
-    height:12rem ;
+    height: auto;
     font-family: 'Poppins', sans-serif;
     display:flex;
     flex-direction: column;
@@ -60,13 +65,12 @@
 }
 
 .topicUser {
-    padding: 1em;
+    padding: 0.3rem;
 }
 
 .userInfo {
     display: flex; 
     flex-direction: row;
-    margin: 0 0 .7em;
     justify-content: space-between;
 }
 
@@ -94,7 +98,6 @@
 
 .friendsTopics .text {
     font-size: .8em;
-
 }
 
 .topicDescription {

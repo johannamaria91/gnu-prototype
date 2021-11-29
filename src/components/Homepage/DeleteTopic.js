@@ -36,8 +36,9 @@ const DeleteTopic = (props) => {
     return (
         <div className="newTopicWrapper" >
             <section className="makeNewTopic">
-                <h4>Are you sure you want to delete this topic with all its content</h4>
+                
                 <button className="close" onClick={close}>✖️</button>
+                <h4>Are you sure you want to delete this topic with all its content</h4>
                 <div>
                     <button className="button-close" onClick={close}> Cancel</button>
                     <button className="button-delete" onClick={(e) => deleteTopic(e, props.topicid)}>Confirm</button>
