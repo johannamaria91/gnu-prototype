@@ -66,6 +66,7 @@
     background: none ;
     box-shadow: none;
 }
+
 .newTopicWrapper .close:hover {
     background:none;
 }
@@ -102,12 +103,10 @@ background: linear-gradient(90deg, rgba(146,135,154,1) 0%, rgba(72,88,164,1) 44%
 .userName {
     font-size:1em;
 }
-
-<<<<<<< HEAD
 p .text {
     margin-bottom:auto;
 }
-=======
+
 .discussionsMain div a{
     text-decoration: none;
     color:black;
@@ -119,7 +118,6 @@ p .text {
     grid-template-columns: repeat( 3, 6fr);
     grid-template-rows: repeat( 1, 2fr);
     background:rgba(247, 245, 245, 0.67)
-  
 }
 
 .topicUser {
@@ -136,4 +134,4 @@ p .text {
 }
 
 
->>>>>>> b62a8a5691c59b8717121e3e3d2401b2f61eb254
+/* css för DeleteTopicPage*/

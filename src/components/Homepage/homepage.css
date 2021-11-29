@@ -21,22 +21,21 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 1rem 1rem;
     padding: 2em;
      width: fit-content;
-    grid-auto-rows: 1fr;
 }
+
 .friendsTopics button {
     border: none;
     background: none;
     align-self: center;
     padding: 0;
     font-size: .7em;
-    flex-grow:1;
     text-align: right;
-    
 }
 
-.friendsTopics> a>div {
+.topic-container{
     background: #e5e5e5;
     padding: 2em;
     border-radius: .5em;
@@ -58,7 +57,6 @@
     -webkit-text-fill-color: transparent; 
     -moz-text-fill-color: transparent;
     max-height: 4em;
-
 }
 
 .topicUser {
@@ -69,6 +67,12 @@
     display: flex; 
     flex-direction: row;
     margin: 0 0 .7em;
+    justify-content: space-between;
+}
+
+.user-view{
+    display: flex;
+    flex-direction: row;
 }
 
 .userInfo figure {
@@ -77,7 +81,6 @@
     border-radius: 1em;
     background: salmon;
     margin: 0;
-  
 }
 
 .friendsTopics .userName {

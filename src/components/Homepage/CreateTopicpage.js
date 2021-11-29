@@ -5,15 +5,18 @@ import NavBar from '../NavBar/NavBar';
 import Overlay from './Overlay';
 import './overlay.css'
 import './homepage.css'
+import DeleteTopic from './DeleteTopic';
 import share from '../../icons/share.svg'
 import trash from '../../icons/trash.svg'
+
 
 //testar
 function CreateNewTopicPage() {
   const [topicData, setTopicData] = useState([])
   const url = 'http://localhost:3363/api/discussions'
   const [showOverlay, setShowOverlay] = useState(false)
-  const [ searchTerm, setSearchTerm ] = useState('')
+  const [showDeleteConfirm, setshowDeleteConfirm] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
   const filteredTopics = filterTopics(topicData, searchTerm)
 
   useEffect(() => {
@@ -27,20 +30,13 @@ function CreateNewTopicPage() {
     setTopicData(topicResponse)
   }
 
-  async function deleteTopic(e, id) {
-    e.preventDefault()
-    await fetch (url+`/${id}`, {
-      method: 'DELETE',
-      body: {id:id},
-      headers: {
-        "Content-type": "application/json",
-      }
-    });
-      fetchData()
-  }
 
   const close = () => {
     setShowOverlay(false)
+  }
+
+  const closeDeletion = () => {
+    setshowDeleteConfirm(false)
   }
 
   function search(s) {
@@ -48,56 +44,69 @@ function CreateNewTopicPage() {
   }
 
   function filterTopics(topicList, searchTerm) {
-    return topicList.filter((data)  => {
-      if( searchTerm === "") {
-          return true
-      } else if ( data.headline.toLowerCase().includes(searchTerm.toLowerCase())) {
-          return data
+    return topicList.filter((data) => {
+      if (searchTerm === "") {
+        return true
+      } else if (data.headline.toLowerCase().includes(searchTerm.toLowerCase())) {
+        return data
       }
-      
+
     })
-}
+  }
 
   return (
     <div className="mainContainer-NewTopic">
-      <NavBar search={search}/>
+      <NavBar search={search} />
 
       <section className="discussionsMain">
         {showOverlay ? <> <div className="inputWrapper">
           <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
         </div> <Overlay fetchData={fetchData} close={close} /> </> :
-        <div className="inputWrapper">
-          <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
-        </div>}
+          <div className="inputWrapper">
+            <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
+          </div>}
         <div className="friendsTopics">
           {filteredTopics ? filteredTopics.map(topic =>
-            <Link className="topicUser" to={`/discussions/${topic.discussionid}`} state={{text: topic.discussiontext, 
-            headline: topic.headline, 
-            date: topic.createddate,
-            user: topic.user,
-            numberOfPosts: topic.numberOfPosts
-            }} >
-              <div key={topic.discussionid + topic.user}>
-                <div className="userInfo"> 
+            <div className="topic-container" key={topic.discussionid + topic.user}>
+              <div className="userInfo">
+                <div className="user-view">
                   <figure>
                     <img />
-                  </figure> 
+                  </figure>
                   <h5 className="userName">{topic.user}</h5>
-                  <button onClick={(e)=>deleteTopic(e, topic.discussionid)}><img alt="delete"src={trash}/></button>
-                  </div>
+                </div>
+
+                {showDeleteConfirm ? <>
+                  <div className="delete-conferm-container">
+                    <button onClick={() => setshowDeleteConfirm(true)}><img alt="delete" src={trash} /></button>
+                  </div> <DeleteTopic fetchData={fetchData} close={closeDeletion} topicid={topic.discussionid} /> </> :
+                  <div className="delete-conferm-container">
+                    <button onClick={() => setshowDeleteConfirm(true)}><img alt="delete" src={trash} /></button>
+                  </div>}
+              </div>
+
+              <Link className="topicUser" to={`/discussions/${topic.discussionid}`} state={{
+                text: topic.discussiontext,
+                headline: topic.headline,
+                date: topic.createddate,
+                user: topic.user,
+                numberOfPosts: topic.numberOfPosts
+              }} >
+
                 <div className="topicContentContainer">
-                <h4 className="topicDescription">{topic.headline}</h4>
-                  <div className={topic.discussiontext.length>60? "gradient": ''}>
+                  <h4 className="topicDescription">{topic.headline}</h4>
+                  <div className={topic.discussiontext.length > 60 ? "gradient" : ''}>
                     <p className="text">{topic.discussiontext}</p>
                   </div>
                 </div>
+
                 <div className="topicInfoContainer">
                   <h4 className="createDate">{topic.createddate.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
                   <h4>{topic.numberOfPosts} posts on this topic</h4>
-                  <img src={share} alt="share"/>
+                  <img src={share} alt="share" />
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
           ) : 'oops kan inte nå api'}
         </div>
       </section>
