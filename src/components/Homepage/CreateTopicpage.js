@@ -18,6 +18,7 @@ function CreateNewTopicPage() {
   const [showDeleteConfirm, setshowDeleteConfirm] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const filteredTopics = filterTopics(topicData, searchTerm)
+  const [activeTopic, setActiveTopic] = useState()
 
   useEffect(() => {
     fetchData()
@@ -38,19 +39,6 @@ function CreateNewTopicPage() {
     setshowDeleteConfirm(false)
   }
 
-  async function deleteTopic(e, id) {
-    e.preventDefault()
-    console.log(id)
-    await fetch(url + `/${id}`, {
-        method: 'DELETE',
-        body: { id: id },
-        headers: {
-            "Content-type": "application/json",
-        }
-    });
-    fetchData()
-}
-
   function search(s) {
     setSearchTerm(s)
   }
@@ -64,6 +52,11 @@ function CreateNewTopicPage() {
       }
 
     })
+  }
+
+  function openDeleteOverlay(topic) {
+    setActiveTopic(topic.discussionid)
+    setshowDeleteConfirm(true)
   }
 
   return (
@@ -88,12 +81,12 @@ function CreateNewTopicPage() {
                   <h5 className="userName">{topic.user}</h5>
                 </div>
 
-                {showDeleteConfirm ? <>
+                {showDeleteConfirm && activeTopic === topic.discussionid? <>
                   <div className="delete-conferm-container">
-                    <button onClick={(e)=>deleteTopic(e, topic.discussionid), setshowDeleteConfirm(true)}><img alt="delete" src={trash} /></button>
-                  </div> <DeleteTopic fetchData={fetchData} close={closeDeletion} topicid={topic.discussionid} /> </> :
+                    <button onClick={() => openDeleteOverlay(topic)}><img alt="delete" src={trash} /></button>
+                  </div> <DeleteTopic fetchData={fetchData} close={closeDeletion} topicid={activeTopic} /> </> :
                   <div className="delete-conferm-container">
-                    <button onClick={(e)=>deleteTopic(e, topic.discussionid), setshowDeleteConfirm(true)}><img alt="delete" src={trash} /></button>
+                    <button onClick={() => openDeleteOverlay(topic)}><img alt="delete" src={trash} /></button>
                   </div>}
               </div>
 
