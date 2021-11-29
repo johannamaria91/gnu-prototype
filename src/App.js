@@ -13,7 +13,7 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-         <Route exact path="/" element={<CreateTopicpage/>}/>
+          <Route exact path="/" element={<CreateTopicpage/>}/>
           <Route path="/discussions/:id" element={<Discussion/>}/>
         </Routes>
       </div>

@@ -13,6 +13,8 @@ function CreateNewTopicPage() {
   const [topicData, setTopicData] = useState([])
   const url = 'http://localhost:3363/api/discussions'
   const [showOverlay, setShowOverlay] = useState(false)
+  const [ searchTerm, setSearchTerm ] = useState('')
+  const filteredTopics = filterTopics(topicData, searchTerm)
 
   useEffect(() => {
     fetchData()
@@ -41,34 +43,48 @@ function CreateNewTopicPage() {
     setShowOverlay(false)
   }
 
+  function search(s) {
+    setSearchTerm(s)
+  }
 
- 
+  function filterTopics(topicList, searchTerm) {
+    return topicList.filter((data)  => {
+      if( searchTerm === "") {
+          return true
+      } else if ( data.headline.toLowerCase().includes(searchTerm.toLowerCase())) {
+          return data
+      }
+      
+    })
+}
 
   return (
     <div className="mainContainer-NewTopic">
-      <NavBar />
-      {showOverlay ? <Overlay fetchData={fetchData} close={close} /> : <div className="inputWrapper">
-        <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
-      </div>}
-
-
+      <NavBar search={search}/>
 
       <section className="discussionsMain">
+        {showOverlay ? <> <div className="inputWrapper">
+          <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
+        </div> <Overlay fetchData={fetchData} close={close} /> </> :
+        <div className="inputWrapper">
+          <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
+        </div>}
         <div className="friendsTopics">
-
-          {topicData ? topicData.map(topic =>
-            <Link className="topicUser" to={`/discussions/${topic.discussionid}`}>
+          {filteredTopics ? filteredTopics.map(topic =>
+            <Link className="topicUser" to={`/discussions/${topic.discussionid}`} state={{text: topic.discussiontext, 
+            headline: topic.headline, 
+            date: topic.createddate,
+            user: topic.user,
+            numberOfPosts: topic.numberOfPosts
+            }} >
               <div key={topic.discussionid + topic.user}>
                 <div className="userInfo"> 
-                
                   <figure>
                     <img />
                   </figure> 
                   <h5 className="userName">{topic.user}</h5>
-                  <button onClick={(e)=>deleteTopic(e, topic.discussionid)}><img src={trash}/></button>
-
+                  <button onClick={(e)=>deleteTopic(e, topic.discussionid)}><img alt="delete"src={trash}/></button>
                   </div>
-
                 <div className="topicContentContainer">
                 <h4 className="topicDescription">{topic.headline}</h4>
                   <div className={topic.discussiontext.length>60? "gradient": ''}>
@@ -78,16 +94,13 @@ function CreateNewTopicPage() {
                 <div className="topicInfoContainer">
                   <h4 className="createDate">{topic.createddate.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
                   <h4>{topic.numberOfPosts} posts on this topic</h4>
-                  <img src={share}/>
+                  <img src={share} alt="share"/>
                 </div>
               </div>
             </Link>
           ) : 'oops kan inte nå api'}
         </div>
       </section>
-
-
-
     </div>
   )
 }

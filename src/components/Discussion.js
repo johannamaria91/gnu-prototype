@@ -3,143 +3,208 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Comments from './Comments';
 import "../styles/discussion.css";
 import Friends from './Friends/Friends'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
+import NavBar from './NavBar/NavBar';
+
+function Discussion(props) {
+  const [username, setUsername] = useState('')
+  const [messageText, setMessageText] = useState('')
+  const [dataList, setDataList] = useState()
+  const url = 'http://localhost:3363/api/'
+  const [showComments, setShowComments] = useState(false)
+  const [commentsSection, setCommentsSection] = useState('')
+  const [activePost, setactivePost] = useState(false)
+  const [editActive, setEditActive] = useState(false)
+  const [postActive, setPostActive] = useState('')
+  const [deleteActivated, setDeleteActivated] = useState(false)
+  let location = useLocation();
+  let topicInfo = location.state;
+  console.log(topicInfo)
+  console.log(location)
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    getData()
 
 
-function Discussion (){
-    const [username, setUsername] = useState('')
-    const [messageText, setMessageText] = useState('')
-    const [dataList, setDataList] = useState()
-    const url = 'http://localhost:3363/api/'
-    const [showComments, setShowComments] = useState(false)
-    const [commentsSection, setCommentsSection] = useState('')
-    const [activePost, setactivePost] = useState(false)
-    const [editActive, setEditActive] = useState(false)
-    const [postActive ,setPostActive] = useState('')
+  }, [id])
 
-    
-    const {id} = useParams();
-
-    useEffect(() => {
-      getData()
-    }, [id])
-    
-    async function getData() {
-    const response = await fetch(url+'discussions/' + id)
+  async function getData() {
+    const response = await fetch(url + 'discussions/' + id)
     const data = await response.json()
     console.log(data)
     setDataList(data);
+  }
+
+  function handleClick(e) {
+    e.preventDefault()
+    let message = {
+      User: username,
+      Text: messageText,
+      discussionid: Number(id),
+
     }
-    
-    function handleClick(e) {
-      e.preventDefault()
-      let message = {
-        User: username,
-        Text: messageText,
-        discussionid: Number(id),
-      
+    console.log(message)
+    addNewPost(message)
+  }
+
+  function goToComments(e, Id) {
+    e.preventDefault();
+    setCommentsSection(<Comments id={Id} />)
+    setShowComments(!showComments)
+    setactivePost(Id)
+  }
+
+  async function addNewPost(message) {
+    await fetch('http://localhost:3363/api/posts', {
+      method: 'POST',
+      body: JSON.stringify(message),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
       }
-      console.log(message)
-      addNewPost(message)
-    }
-    
-    function goToComments(e, Id) {
-      e.preventDefault();
-      setCommentsSection(<Comments id={Id}/>) 
-      setShowComments(!showComments)
-      setactivePost(Id)
-    }
-    
-    async function addNewPost(message) {
-      await fetch('http://localhost:3363/api/posts', {
-        method: 'POST',
-        body: JSON.stringify(message),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        }
-      })
-      getData();
-    }
+    })
+    getData();
+  }
 
-    async function sendEdit(e, changedPost){
-      e.preventDefault()
+  async function sendEdit(e, changedPost) {
+    e.preventDefault()
 
-      if(changedPost.text !== messageText){
+    if (changedPost.text !== messageText) {
       changedPost.text = messageText
       console.log(changedPost)
-      await fetch(url+'posts/'+changedPost.postid, {
+      await fetch(url + 'posts/' + changedPost.postid, {
         method: 'PUT',
         body: JSON.stringify(changedPost),
         headers: {
           "Content-type": "application/json",
-              }
-              })
-          }
-          
-  setEditActive(false)
+        }
+      })
+    }
+
+    setEditActive(false)
   }
 
-  function editPost(e, post){
+  function editPost(e, post) {
     e.preventDefault()
     setPostActive(post.postid)
     setEditActive(true)
     setMessageText(post.text)
-}
-    
-      return (
-    
-        <div className="discussionMain-container">
-          <header> <h1>I want a Gnu</h1></header>
-          <main> 
-            <section className="main-container">
-              <section className="friends">
-             <ul>
-               <Friends/>
-             </ul> 
-            
+  }
+
+  async function deletePost(e, id) {
+    e.preventDefault()
+    await fetch(url + `posts/${id}`, {
+      method: 'DELETE',
+      body: { postid: id },
+      headers: {
+        "Content-type": "application/json",
+      }
+    });
+    getData()
+  }
+
+  function activateDelete(e, post) {
+    e.preventDefault()
+    setDeleteActivated(true)
+    setPostActive(post.postid)
+  }
+
+
+  return (
+
+    <div className="discussionMain-container">
+      <NavBar />
+      <main>
+        <section className="main-container">
+          <section className="friends">
+            <ul>
+              <Friends />
+            </ul>
+
+          </section>
+
+          <section className="discussion">
+            <section className="topic-intro">
+              <div className="user-info">
+                <figure>
+                  <img />
+                </figure>
+                <h5 className="user-name">{topicInfo.user}</h5>
+              </div>
+              <h4>{topicInfo.headline}</h4>
+              <p>{topicInfo.text}</p>
+              <footer className="reaction-box">
+                <h5>{topicInfo.date.slice(0, 19).replace('T', ' ').slice(0, 16)}</h5>
+                <h5>{topicInfo.numberOfPosts} posts on this topic</h5>
+                <button><h5>Create post on this topic</h5></button>
+              </footer>
             </section>
+            {dataList ? dataList.posts.map(post =>
+              <div className="border-container">
 
-            <section className="messages">
-
-              {  dataList?  dataList.posts.map(post => 
                 <article key={post.postid} >
-                  <div className="header">
-                  <h4 className="user">{post.user} said:</h4>
-                  <h4>{post.dateTime.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
-                
+
+
+
+                  <div>
+                    <div className="border-placeholder"> </div>
+                    <div className="content">
+                      <div className="header">
+                        <div className="user-info">
+                          <figure>
+                            <img />
+                          </figure>
+                          <h5 className="user-name">{post.user}</h5>
+                        </div>
+
+
+                      </div>
+
+                      {editActive && postActive === post.postid
+                        ? <textarea value={messageText} className="form-control z-depth-1" onChange={e => setMessageText(e.target.value)} />
+                        : <p>{post.text}</p>}
+
+
+                      <section className="reaction-container">
+                      <h4>{post.dateTime.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
+
+                        <button className={activePost === post.postid ? "active-post" : null} onClick={(e) => goToComments(e, post.postid)}><h4>Comments</h4></button>
+                        {deleteActivated && postActive === post.postid
+                          ? <button onClick={(e) => deletePost(e, post.postid)}><h4>Confirm delete</h4></button>
+                          : <button onClick={(e) => activateDelete(e, post)}><h4>Delete</h4></button>
+                        }
+
+                        {editActive && postActive === post.postid
+                          ? <button type="button" onClick={(e) => sendEdit(e, post)}><h4>Done</h4></button>
+                          :
+                          <button type="button" onClick={(e) => editPost(e, post)}><h4>Edit</h4></button>}
+
+                      </section>
+                    </div>
                   </div>
-                  {editActive && postActive===post.postid 
-                ? <textarea value={messageText} className="form-control z-depth-1" onChange={e => setMessageText(e.target.value)}/> 
-                : <p>{post.text}</p>}
-                  <section className="reaction-container">
-    
-                  <button className={activePost===post.postid? "active-post":null} onClick={(e) => goToComments(e, post.postid) }>Comments</button>
-                  
-                  {editActive && postActive===post.postid 
-                    ?<button type="button" onClick={(e)=>sendEdit(e, post)}>Done</button>
-                    :
-                  <button type="button" onClick={(e)=>editPost(e, post)}>Edit</button> }
-                  </section>
-                  {showComments && activePost===post.postid? commentsSection : null}
+                  {showComments && activePost === post.postid ? commentsSection : null}
+
                 </article>
-              )
-             : 'oops kan inte nå api'}
-    
-    
-             <article  className={showComments?"hide": "new-message" }>
-             <form> 
-              <input type="text" placeholder={"Namn"} className="input-name" onChange={e => setUsername(e.target.value)}/> 
-              <textarea placeholder="Ditt meddelande..."  className="input-text"onChange={e => setMessageText(e.target.value)}/> 
-              <button type="button" className="btn" onClick={(e)=>handleClick(e)}>Send message</button>
-            </form> 
+              </div>
+            )
+              : 'oops kan inte nå api'}
+
+
+            <article className={showComments ? "hide" : "new-message"}>
+              <form>
+                <input type="text" placeholder={"Namn"} className="input-name" onChange={e => setUsername(e.target.value)} />
+                <textarea placeholder="Ditt meddelande..." className="input-text" onChange={e => setMessageText(e.target.value)} />
+                <button type="button" className="btn" onClick={(e) => handleClick(e)}>Send message</button>
+              </form>
             </article>
-            
-            </section>
-            
-              </section> 
-           
-          </main>
-        </div>
-      );
-    }
-    export default Discussion;
+
+          </section>
+
+        </section>
+
+      </main>
+    </div>
+  );
+}
+export default Discussion;

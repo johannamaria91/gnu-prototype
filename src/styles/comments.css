@@ -1,15 +1,39 @@
 
 
 .comments {
-    padding:0;
+    padding:0 0 0 2em;
+    
   }
   
-.comments article{
+.comments .border-container article{
     border-bottom:none;
     padding:1em 0.5em ;
     font-size: .8em;
-    background-color: rgb(165, 103, 4);
+    display: flex;
+    flex-direction: column;
+    
   }
+
+  .comments .existing-comments article{
+    border-bottom:none;
+    font-size: .8em;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    
+  }
+
+  .comments header {
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+
+  .comments header h4 {
+    align-self: center;
+  }
+  
   
 .footer button{
     background: none;
@@ -21,3 +45,61 @@
   .hide{
     display: none;
   }
+
+  .discussion .comments .content {
+    padding: 1em;
+    display: flex;
+    background: var(--secondary-bg-color);
+
+
+  }
+ .discussion .comments .content p {
+    flex-grow: 1;
+    padding: 0 1em;
+
+  }
+
+  .border-test > div{
+    display: flex;
+  }
+
+  
+  
+/* IF THERE ARE MORE */
+
+.comments .existing-comments article .border-test{
+    display: flex;
+    flex-direction: row;
+    border-left: 2px solid var(--secondary-color);
+    width: auto;
+  }
+
+  .comments .existing-comments article .border-test > div{
+    width: 100%;
+    margin: .2em 0;
+  }
+
+ /*  LAST CHILD */
+  .comments .existing-comments article:last-child .border-test{
+    display: flex;
+    flex-direction: row;
+    border-left: none;
+    margin-left: 0px;
+    width: 100%;
+  }
+
+  .comments .existing-comments article:last-child .border-node{
+    border-bottom:2px solid var(--secondary-color);
+    border-left: 2px solid var(--secondary-color);
+    width: 1.3em;
+    height: 80%;
+    margin-top: -0.2em;
+  }
+
+  .comments .existing-comments .border-node{
+    border-bottom:2px solid var(--secondary-color);
+    width: 1.3em;
+    height: 80%;
+  }
+
+  

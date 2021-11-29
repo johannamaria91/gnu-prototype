@@ -24,7 +24,14 @@ const Overlay = (props) => {
             discussiontext: description,
             user: user,
         }
-        addNewPost(topicData)
+
+        if ( headline === "" || description === "" ) {
+            alert("Fill the missing fields please")
+        } 
+        else {
+            addNewPost(topicData)
+        }
+
     }
 
     async function addNewPost(topicData) {
