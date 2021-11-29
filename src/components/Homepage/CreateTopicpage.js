@@ -38,6 +38,19 @@ function CreateNewTopicPage() {
     setshowDeleteConfirm(false)
   }
 
+  async function deleteTopic(e, id) {
+    e.preventDefault()
+    console.log(id)
+    await fetch(url + `/${id}`, {
+        method: 'DELETE',
+        body: { id: id },
+        headers: {
+            "Content-type": "application/json",
+        }
+    });
+    fetchData()
+}
+
   function search(s) {
     setSearchTerm(s)
   }
@@ -77,10 +90,10 @@ function CreateNewTopicPage() {
 
                 {showDeleteConfirm ? <>
                   <div className="delete-conferm-container">
-                    <button onClick={() => setshowDeleteConfirm(true)}><img alt="delete" src={trash} /></button>
+                    <button onClick={(e)=>deleteTopic(e, topic.discussionid), setshowDeleteConfirm(true)}><img alt="delete" src={trash} /></button>
                   </div> <DeleteTopic fetchData={fetchData} close={closeDeletion} topicid={topic.discussionid} /> </> :
                   <div className="delete-conferm-container">
-                    <button onClick={() => setshowDeleteConfirm(true)}><img alt="delete" src={trash} /></button>
+                    <button onClick={(e)=>deleteTopic(e, topic.discussionid), setshowDeleteConfirm(true)}><img alt="delete" src={trash} /></button>
                   </div>}
               </div>
 
