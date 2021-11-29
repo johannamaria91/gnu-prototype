@@ -13,12 +13,12 @@ body {
   }
   
   .main-container {
-   display: flex;
-   flex-direction: row;
-   background: var(--primary-color);
-   padding: 0;
-   max-width: 50rem;
-   margin:auto auto ;
+    display: grid;
+    grid-template-columns:3fr 7fr ;
+    background: var(--primary-color);
+    padding: 0;
+    max-width: 50rem;
+    margin:auto auto ;
   }
   main section {
   text-align: left;
@@ -129,11 +129,11 @@ body {
   .new-message form .input-text {
     border-radius: 1em;
     border: none;
-    padding: 1em;
+    padding: 1em 1em;
     min-height: 7em;
     margin: 1em 0;
+    width: 100%;
   }
-  
   li {
     list-style: none;
   }
