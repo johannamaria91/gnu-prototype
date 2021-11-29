@@ -30,7 +30,6 @@ function CreateNewTopicPage() {
     setTopicData(topicResponse)
   }
 
-
   const close = () => {
     setShowOverlay(false)
   }

@@ -1,4 +1,4 @@
-import "./overlay.css"
+import "./deleteTopic.css"
 
 
 
@@ -14,8 +14,12 @@ const DeleteTopic = (props) => {
         props.close()
     }
 
+    console.log(props.topicid)
+
+
     async function deleteTopic(e, id) {
         e.preventDefault()
+        console.log(id)
         await fetch(url + `/${id}`, {
             method: 'DELETE',
             body: { id: id },
@@ -24,6 +28,7 @@ const DeleteTopic = (props) => {
             }
         });
         fetchData()
+
     }
 
     return (
