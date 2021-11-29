@@ -26,6 +26,8 @@ const DeleteTopic = (props) => {
         fetchData()
     }
 
+    console.log(props)
+
     return (
         <div className="newTopicWrapper" >
             <section className="makeNewTopic">
