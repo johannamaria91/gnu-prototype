@@ -70,6 +70,7 @@ function Comments(props) {
 
     setEditActive(false)
   }
+
   async function addNewComment(message) {
     console.log(message)
     await fetch(baseUrl + 'api/comments', {
@@ -93,12 +94,12 @@ function Comments(props) {
     })
     getComments(id)
   }
+
   function setActiveDelete(e, comment) {
     e.preventDefault()
     setDeleteActive(true)
     setDeleteCommentActive(comment.commentid)
   }
-
 
   return (
 
@@ -108,21 +109,25 @@ function Comments(props) {
         
           <article key={comment.commentid}><div className="border-test">
             <div>
-              <div className="border-placeholder"></div>
+              <div className="border-node"></div>
               <div className="content">
-                <div className="header">
-                  <h4 className="user">{comment.user} said:</h4>
-                  <h4>{comment.date}</h4>
-                </div>
+                <header>
+                <div className="user-info">
+                          <figure>
+                            <img />
+                          </figure>
+                          <h5 className="user-name">{comment.user}</h5>
+                        </div>
+                  
+                  <h4>{comment.date.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
+                </header>
                 {editActive && commentActive === comment.commentid
                   ? <textarea value={messageText} className="form-control z-depth-1" onChange={e => setMessageText(e.target.value)} />
                   : <p>{comment.comment_text}</p>}
-
                 <div className="footer text-end">
                   {editActive && commentActive === comment.commentid
                     ? <button type="button" onClick={(e) => SendEdit(e, comment)}>Done</button>
                     : <><button type="button" onClick={(e) => handleEdit(e, comment)}>Edit&nbsp;</button>
-
                       {deleteActive && deletecommentActive === comment.commentid
                         ? <button type="button" onClick={(e) => handleDelete(e, comment.commentid)}>Confirm</button>
                         : <button type="button" onClick={(e) => setActiveDelete(e, comment)}>Delete</button>
@@ -135,19 +140,15 @@ function Comments(props) {
        ) : 'no comments for this post'}
       </section>
       
-
       <form className={!showForm ? "hide" : "newComment-form"}>
-
         <label htmlFor="userName">User</label>
         <input value={username} type="text" id="userName" className="form-control form-control-sm" onChange={e => setUsername(e.target.value)} />
-
         <div className="form-group shadow-textarea">
           <label htmlFor="commentArea">Message</label>
           <textarea value={messageText} className="form-control z-depth-1" id="commentArea" rows="2" onChange={e => setMessageText(e.target.value)}></textarea>
         </div>
         <button type="button" className="btn border border-1 mt-2" onClick={(e) => handleClick(e)}>Send message</button>
         <button type="button" className="btn border border-1 mt-2" onClick={() => cancel()}>Cancel</button>
-
       </form>
     </section>
 

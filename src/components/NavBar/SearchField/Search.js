@@ -1,9 +1,6 @@
-import { mapToStyles } from '@popperjs/core/lib/modifiers/computeStyles'
-import { useState, useEffect } from 'react'
-import '../navbar.css'
-// import SearchBar from './SearchField/SearchBar'
-// import CreateNewTopicPage from '../Homepage/CreateTopicpage'
-import { Link } from 'react-router-dom';
+import './search.css'
+
+
 
 
 const Search = (props) => {
