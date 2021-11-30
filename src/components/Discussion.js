@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Comments from './Comments';
 import "../styles/discussion.css";
 import Friends from './Friends/Friends'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
+import NavBar from './NavBar/NavBar';
 
-
-function Discussion() {
+function Discussion(props) {
   const [username, setUsername] = useState('')
   const [messageText, setMessageText] = useState('')
   const [dataList, setDataList] = useState()
@@ -16,12 +15,18 @@ function Discussion() {
   const [activePost, setactivePost] = useState(false)
   const [editActive, setEditActive] = useState(false)
   const [postActive, setPostActive] = useState('')
-
+  const [deleteActivated, setDeleteActivated] = useState(false)
+  let location = useLocation();
+  let topicInfo = location.state;
+  console.log(topicInfo)
+  console.log(location)
 
   const { id } = useParams();
 
   useEffect(() => {
     getData()
+
+
   }, [id])
 
   async function getData() {
@@ -86,10 +91,29 @@ function Discussion() {
     setMessageText(post.text)
   }
 
+  async function deletePost(e, id) {
+    e.preventDefault()
+    await fetch(url + `posts/${id}`, {
+      method: 'DELETE',
+      body: { postid: id },
+      headers: {
+        "Content-type": "application/json",
+      }
+    });
+    getData()
+  }
+
+  function activateDelete(e, post) {
+    e.preventDefault()
+    setDeleteActivated(true)
+    setPostActive(post.postid)
+  }
+
+
   return (
 
     <div className="discussionMain-container">
-      <header> <h1>I want a Gnu</h1></header>
+      <NavBar />
       <main>
         <section className="main-container">
           <section className="friends">
@@ -99,38 +123,60 @@ function Discussion() {
 
           </section>
 
-          <section className="messages">
-
+          <section className="discussion">
+            <section className="topic-intro">
+              <div className="user-info">
+                <figure>
+                  <img />
+                </figure>
+                <h5 className="user-name">{topicInfo.user}</h5>
+              </div>
+              <h4>{topicInfo.headline}</h4>
+              <p>{topicInfo.text}</p>
+              <footer className="reaction-box">
+                <h5>{topicInfo.date.slice(0, 19).replace('T', ' ').slice(0, 16)}</h5>
+                <h5>{topicInfo.numberOfPosts} posts on this topic</h5>
+                <button><h5>Create post on this topic</h5></button>
+              </footer>
+            </section>
             {dataList ? dataList.posts.map(post =>
               <div className="border-container">
 
-                <article key={post.postid} >
-
-                  
-
+                <article className="post" key={post.postid} >
                   <div>
-                  <div className="border-placeholder"> </div>
-                  <div className="content">
-                    <div className="header">
-                      <h4 className="user">{post.user} said:</h4>
-                      <h4>{post.dateTime.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
+                    <div className="border-placeholder"> </div>
+                    <div className="content">
+                      <div className="header">
+                        <div className="user-info">
+                          <figure>
+                            <img />
+                          </figure>
+                          <h5 className="user-name">{post.user}</h5>
+                        </div>
 
-                    </div>
-                    {editActive && postActive === post.postid
-                      ? <textarea value={messageText} className="form-control z-depth-1" onChange={e => setMessageText(e.target.value)} />
-                      : <p>{post.text}</p>}
 
-
-                    <section className="reaction-container">
-
-                      <button className={activePost === post.postid ? "active-post" : null} onClick={(e) => goToComments(e, post.postid)}>Comments</button>
+                      </div>
 
                       {editActive && postActive === post.postid
-                        ? <button type="button" onClick={(e) => sendEdit(e, post)}>Done</button>
-                        :
-                        <button type="button" onClick={(e) => editPost(e, post)}>Edit</button>}
-                    
-                    </section>
+                        ? <textarea value={messageText} className="form-control z-depth-1" onChange={e => setMessageText(e.target.value)} />
+                        : <p>{post.text}</p>}
+
+
+                      <section className="reaction-container">
+                      <h4>{post.dateTime.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
+
+                        <button className={activePost === post.postid ? "active-post" : null} onClick={(e) => goToComments(e, post.postid)}><h4>{}omments</h4></button>
+                        {deleteActivated && postActive === post.postid
+                          ? <button onClick={(e) => deletePost(e, post.postid)}><h4>Confirm delete</h4></button>
+                          : <button onClick={(e) => activateDelete(e, post)}><h4>Delete</h4></button>
+                        }
+
+                        {editActive && postActive === post.postid
+                          ? <button type="button" onClick={(e) => sendEdit(e, post)}><h4>Done</h4></button>
+                          :
+                          <button type="button" onClick={(e) => editPost(e, post)}><h4>Edit</h4></button>}
+
+                      </section>
                     </div>
                   </div>
                   {showComments && activePost === post.postid ? commentsSection : null}
@@ -143,9 +189,9 @@ function Discussion() {
 
             <article className={showComments ? "hide" : "new-message"}>
               <form>
-                <input type="text" placeholder={"Namn"} className="input-name" onChange={e => setUsername(e.target.value)} />
-                <textarea placeholder="Ditt meddelande..." className="input-text" onChange={e => setMessageText(e.target.value)} />
-                <button type="button" className="btn" onClick={(e) => handleClick(e)}>Send message</button>
+                <input type="text" placeholder="Username" className="input-name" onChange={e => setUsername(e.target.value)} />
+                <textarea rows="4" placeholder="Write something..." className="input-text" onChange={e => setMessageText(e.target.value)} />
+                <button type="button" className="btn" onClick={(e) => handleClick(e)}>Post</button>
               </form>
             </article>
 

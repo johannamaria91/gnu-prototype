@@ -1,10 +1,11 @@
 
 
-.comments {
+  .comments {
     padding:0 0 0 2em;
+    
   }
   
-.comments .border-container article{
+  .comments .border-container article{
     border-bottom:none;
     padding:1em 0.5em ;
     font-size: .8em;
@@ -18,7 +19,18 @@
     display: flex;
     flex-direction: column;
     margin: 0;
+    
   }
+
+  .comments header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .comments header h4 {
+    align-self: center;
+  }
+  
   
 .footer button{
     background: none;
@@ -31,9 +43,14 @@
     display: none;
   }
 
-  .comments .content {
-    padding: 0 0 0 1em;
-    background-color: rgb(165, 103, 4);
+  .discussion .comments .content {
+    padding: 1em;
+    display: flex;
+    background: var(--secondary-bg-color);
+  }
+ .discussion .comments .content p {
+    flex-grow: 1;
+    padding: 0 1em;
 
   }
 
@@ -48,8 +65,13 @@
 .comments .existing-comments article .border-test{
     display: flex;
     flex-direction: row;
-    border-left: 3px solid red;
+    border-left: 2px solid var(--secondary-color);
+    width: auto;
+  }
+
+  .comments .existing-comments article .border-test > div{
     width: 100%;
+    margin: .2em 0;
   }
 
  /*  LAST CHILD */
@@ -62,16 +84,58 @@
   }
 
   .comments .existing-comments article:last-child .border-node{
-    border-bottom:3px solid red;
-    border-left: 3px solid red;
+    border-bottom:2px solid var(--secondary-color);
+    border-left: 2px solid var(--secondary-color);
     width: 1.3em;
     height: 80%;
+    margin-top: -0.2em;
   }
 
   .comments .existing-comments .border-node{
-    border-bottom:3px solid red;
+    border-bottom:2px solid var(--secondary-color);
     width: 1.3em;
     height: 80%;
   }
 
-  
+  /* New message */
+  .newComment-form{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin-left: 2em;
+  }
+
+  .newComment-form input {
+    border-radius: .6em;
+    padding: .5em 1em;
+    border: 2px rgb(136, 128, 135) solid;
+  }
+
+  .newComment-form textarea {
+    border-radius: .6em;
+    padding: 1em;
+     margin-top: .5em;
+    border: 2px rgb(136, 128, 135) solid;
+    resize: vertical;
+    min-height: 5em;
+    
+  }
+
+  .newComment-form div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .newComment-form button {
+    border: 0px;
+    padding: 0.5em 1.5em;
+    color: white;
+    border-radius: 80px;
+    box-shadow: 2px 3px 7px rgb(226 226 226);
+    background: rgb(90,68,105);
+    background: linear-gradient(90deg, rgba(90,68,105,1) 0%, rgba(16,27,77,1) 71%, rgba(16,27,77,1) 100%, rgba(16,27,77,1) 100%);
+    margin:.3em 0 .3em .5em;
+    cursor: pointer;
+  }
