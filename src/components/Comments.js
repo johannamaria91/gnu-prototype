@@ -14,7 +14,7 @@ function Comments(props) {
   const [deletecommentActive, setDeleteCommentActive] = useState('')
   const [deleteActive, setDeleteActive] = useState(false)
   const [showForm, setShowForm] = useState(true)
-  const [charactersLeft, setCharactersLeft] = useState(500)
+  const [charactersLeft, setCharactersLeft] = useState(0)
 
 
   useEffect(() => {
@@ -29,9 +29,9 @@ function Comments(props) {
   }
   
   function maxCharacters(messageText) {
-    if (messageText.length < 500) {
+    if (messageText.length <= 500) {
       setMessageText(messageText)
-      setCharactersLeft(499-messageText.length)
+      setCharactersLeft(messageText.length)
     }
   }
 
@@ -133,8 +133,8 @@ function Comments(props) {
                     <h4>{comment.date.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
                   </header>
                   {editActive && commentActive === comment.commentid
-                    ? <textarea maxlength="501" value={messageText} className="form-control z-depth-1" onChange={e=> maxCharacters(e.target.value)} />
-                    : <p maxlength="501">{comment.comment_text}</p>}
+                    ? <textarea maxlength="500" value={messageText} className="form-control z-depth-1" onChange={e=> maxCharacters(e.target.value)} />
+                    : <p maxlength="500">{comment.comment_text}</p>}
                   <div className="footer text-end">
                     {editActive && commentActive === comment.commentid
                       ? <button type="button" onClick={(e) => SendEdit(e, comment)}>Done</button>
@@ -153,11 +153,11 @@ function Comments(props) {
 
         <form className={!showForm ? "hide" : "newComment-form"}>
           <label htmlFor="userName">User</label>
-          <input maxlength="501" value={username} type="text" id="userName" className="form-control form-control-sm" onChange={e => setUsername(e.target.value)} />
+          <input maxlength="500" value={username} type="text" id="userName" className="form-control form-control-sm" onChange={e => setUsername(e.target.value)} />
           <div className="form-group shadow-textarea">
             <label htmlFor="commentArea">Message</label>
-            <textarea maxlength="501" value={messageText} className="form-control z-depth-1" id="commentArea" rows="2" onChange={e=> maxCharacters(e.target.value)}></textarea>
-            <p>characters left:{charactersLeft}</p>
+            <textarea maxlength="500" value={messageText} className="form-control z-depth-1" id="commentArea" rows="2" onChange={e=> maxCharacters(e.target.value)}></textarea>
+            <p>{charactersLeft}/500</p>
           </div>
           <button type="button" className="btn border border-1 mt-2" onClick={(e) => handleClick(e)}>Send message</button>
           <button type="button" className="btn border border-1 mt-2" onClick={() => cancel()}>Cancel</button>
