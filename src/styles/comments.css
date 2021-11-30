@@ -97,4 +97,45 @@
     height: 80%;
   }
 
-  
+  /* New message */
+  .newComment-form{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin-left: 2em;
+  }
+
+  .newComment-form input {
+    border-radius: .6em;
+    padding: .5em 1em;
+    border: 2px rgb(136, 128, 135) solid;
+  }
+
+  .newComment-form textarea {
+    border-radius: .6em;
+    padding: 1em;
+     margin-top: .5em;
+    border: 2px rgb(136, 128, 135) solid;
+    resize: vertical;
+    min-height: 5em;
+    
+  }
+
+  .newComment-form div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .newComment-form button {
+    border: 0px;
+    padding: 0.5em 1.5em;
+    color: white;
+    border-radius: 80px;
+    box-shadow: 2px 3px 7px rgb(226 226 226);
+    background: rgb(90,68,105);
+    background: linear-gradient(90deg, rgba(90,68,105,1) 0%, rgba(16,27,77,1) 71%, rgba(16,27,77,1) 100%, rgba(16,27,77,1) 100%);
+    margin:.3em 0 .3em .5em;
+    cursor: pointer;
+  }

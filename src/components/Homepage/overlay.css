@@ -1,6 +1,9 @@
 :root {
     --border-color: rgb(136, 128, 135)
 }
+textarea {
+    font-family: sans-serif;
+}
 
 .newTopicWrapper {
     position: fixed;
@@ -40,7 +43,7 @@
 
 }
 
-.newTopicWrapper input, textarea {
+.newTopicWrapper input, .newTopicWrapper textarea {
     width: 30em;
     padding: 0.5em;
     margin: 0.5em;

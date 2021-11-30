@@ -106,19 +106,19 @@ function Comments(props) {
     <section className="comments">
       <section className="existing-comments">
         {commentsList ? commentsList.map(comment =>
-        
+
           <article key={comment.commentid}><div className="border-test">
             <div>
               <div className="border-node"></div>
               <div className="content">
                 <header>
-                <div className="user-info">
-                          <figure>
-                            <img />
-                          </figure>
-                          <h5 className="user-name">{comment.user}</h5>
-                        </div>
-                  
+                  <div className="user-info">
+                    <figure>
+                      <img />
+                    </figure>
+                    <h5 className="user-name">{comment.user}</h5>
+                  </div>
+
                   <h4>{comment.date.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
                 </header>
                 {editActive && commentActive === comment.commentid
@@ -135,20 +135,18 @@ function Comments(props) {
                 </div>
               </div>
             </div>
-            </div>
+          </div>
           </article>
-       ) : 'no comments for this post'}
+        ) : 'no comments for this post'}
       </section>
-      
+
       <form className={!showForm ? "hide" : "newComment-form"}>
-        <label htmlFor="userName">User</label>
-        <input value={username} type="text" id="userName" className="form-control form-control-sm" onChange={e => setUsername(e.target.value)} />
-        <div className="form-group shadow-textarea">
-          <label htmlFor="commentArea">Message</label>
-          <textarea value={messageText} className="form-control z-depth-1" id="commentArea" rows="2" onChange={e => setMessageText(e.target.value)}></textarea>
+        <input value={username} placeholder="Username" type="text" id="userName" onChange={e => setUsername(e.target.value)} />
+        <textarea value={messageText} placeholder="Write your comment..."id="commentArea" rows="2" onChange={e => setMessageText(e.target.value)}></textarea>
+        <div className="new-comment-btns">
+          <button type="button"  onClick={(e) => handleClick(e)}>Send message</button>
+          <button type="button"  onClick={() => cancel()}>Cancel</button>
         </div>
-        <button type="button" className="btn border border-1 mt-2" onClick={(e) => handleClick(e)}>Send message</button>
-        <button type="button" className="btn border border-1 mt-2" onClick={() => cancel()}>Cancel</button>
       </form>
     </section>
 
