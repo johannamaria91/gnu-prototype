@@ -1,17 +1,16 @@
 
 
-.comments {
+  .comments {
     padding:0 0 0 2em;
     
   }
   
-.comments .border-container article{
+  .comments .border-container article{
     border-bottom:none;
     padding:1em 0.5em ;
     font-size: .8em;
     display: flex;
     flex-direction: column;
-    
   }
 
   .comments .existing-comments article{
@@ -26,9 +25,7 @@
   .comments header {
     display: flex;
     flex-direction: column;
-    
   }
-  
 
   .comments header h4 {
     align-self: center;
@@ -50,8 +47,6 @@
     padding: 1em;
     display: flex;
     background: var(--secondary-bg-color);
-
-
   }
  .discussion .comments .content p {
     flex-grow: 1;

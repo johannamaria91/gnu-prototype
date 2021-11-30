@@ -143,9 +143,6 @@ function Discussion(props) {
               <div className="border-container">
 
                 <article key={post.postid} >
-
-
-
                   <div>
                     <div className="border-placeholder"> </div>
                     <div className="content">

@@ -70,6 +70,7 @@ function Comments(props) {
 
     setEditActive(false)
   }
+
   async function addNewComment(message) {
     console.log(message)
     await fetch(baseUrl + 'api/comments', {
@@ -93,12 +94,12 @@ function Comments(props) {
     })
     getComments(id)
   }
+
   function setActiveDelete(e, comment) {
     e.preventDefault()
     setDeleteActive(true)
     setDeleteCommentActive(comment.commentid)
   }
-
 
   return (
 
