@@ -16,6 +16,7 @@ function Discussion(props) {
   const [editActive, setEditActive] = useState(false)
   const [postActive, setPostActive] = useState('')
   const [deleteActivated, setDeleteActivated] = useState(false)
+  const [charactersLeft, setCharactersLeft] = useState()
   let location = useLocation();
   let topicInfo = location.state;
   console.log(topicInfo)
@@ -34,6 +35,13 @@ function Discussion(props) {
     const data = await response.json()
     console.log(data)
     setDataList(data);
+  }
+
+  function maxCharacters(messageText) {
+    if (messageText.length < 500) {
+      setMessageText(messageText)
+      setCharactersLeft(499-messageText.length)
+    }
   }
 
   function handleClick(e) {
@@ -158,9 +166,8 @@ function Discussion(props) {
                       </div>
 
                       {editActive && postActive === post.postid
-                        ? <textarea value={messageText} className="form-control z-depth-1" onChange={e => setMessageText(e.target.value)} />
-                        : <p>{post.text}</p>}
-
+                        ? <textarea maxlength="499" value={messageText} className="form-control z-depth-1" onChange={e => maxCharacters(e.target.value)} />
+                        : <p maxlength="499" >{post.text}</p>}
 
                       <section className="reaction-container">
                       <h4>{post.dateTime.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
@@ -189,8 +196,9 @@ function Discussion(props) {
 
             <article className={showComments ? "hide" : "new-message"}>
               <form>
-                <input type="text" placeholder={"Namn"} className="input-name" onChange={e => setUsername(e.target.value)} />
-                <textarea placeholder="Ditt meddelande..." className="input-text" onChange={e => setMessageText(e.target.value)} />
+                <input maxlength="499" type="text" placeholder={"Namn"} className="input-name" onChange={e => setUsername(e.target.value)} />
+                <textarea maxlength="499" placeholder="Ditt meddelande..." className="input-text" onChange={e => maxCharacters(e.target.value)} />
+                <p>characters left:{charactersLeft}</p>
                 <button type="button" className="btn" onClick={(e) => handleClick(e)}>Send message</button>
               </form>
             </article>
