@@ -38,7 +38,6 @@ body {
   .friends {
     background: var(--primary-color);
     border-radius: .7em;
-
     /* flex-grow: 1; */
     word-wrap: nowrap;
     
@@ -152,7 +151,7 @@ body {
     font-size: .6em;
   }
   
-  .discussion article {
+  .discussion .border-container .post {
     padding: 0;
     color: var(--primary-text-color);
     margin: 0 0 0 0;
@@ -215,35 +214,44 @@ body {
   }
   
   .discussion .new-message {
-    grid-column: 2 /span 1 ;
-    grid-row: 2 /span 1;
     border-bottom: none;
+    width: 100%;
   }
   
   .new-message form {
+    padding: .5em;
     display: flex;
     flex-direction: column;
   }
   
   .new-message form button {
-    background: white;
-    border-radius: 1.5em;
-    padding: .5em 1em;
-  
+    border: 0px;
+    padding: 0.5em 1.5em;
+    color: white;
+    border-radius: 80px;
+    box-shadow: 2px 3px 7px rgb(226 226 226);
+    background: rgb(90,68,105);
+    background: linear-gradient(90deg, rgba(90,68,105,1) 0%, rgba(16,27,77,1) 71%, rgba(16,27,77,1) 100%, rgba(16,27,77,1) 100%);
+    align-self: flex-end;
+    cursor: pointer;
   }
   
+  
   .new-message form .input-name {
-    border-radius: 2em;
     border: none;
     padding: .5em 1em;
+    border-radius: .6em;
+    box-shadow: 2px 3px 7px rgb(226 226 226);
+    border: 2px rgb(136, 128, 135) solid;
   }
   
   .new-message form .input-text {
-    border-radius: 1em;
-    border: none;
+    border-radius: .6em;
     padding: 1em;
-    min-height: 7em;
     margin: 1em 0;
+    border: 2px rgb(136, 128, 135) solid;
+    resize: vertical;
+    min-height: 5em;
   }
   
   li {
@@ -256,5 +264,5 @@ body {
   }
 
   .hide {
-    display: none;
+    display: none !important;
   }
