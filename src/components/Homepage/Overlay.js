@@ -19,7 +19,6 @@ const Overlay = (props) => {
 
     function handleClick(e) {
         e.preventDefault()
-
         let topicData = {
             headline: headline,
             discussiontext: description,
@@ -54,7 +53,6 @@ const Overlay = (props) => {
     const close = () => {
         props.close()
     }
-
     return (
         <div className="newTopicWrapper" >
             <section className="makeNewTopic">
