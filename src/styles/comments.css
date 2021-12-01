@@ -22,10 +22,6 @@
     
   }
 
-  .comments header {
-    display: flex;
-    flex-direction: column;
-  }
   
 .footer button{
     background: none;
@@ -40,10 +36,11 @@
 
   .comments h4 {
     align-self: center;
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 4;
-    grid-row-end: 5;
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start:1;
+    grid-row-end: 2;
+    text-align: right;
   }
 
   .comments header .user-info {
@@ -62,18 +59,20 @@
     grid-row-start: 4;
     grid-row-end: 4;
   }
-
   .discussion .comments .content {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 3fr 1fr;
-    padding: 1em;
+    grid-template-rows: 2rem 1fr;
+    padding: 1.4em;
     display: grid;
     background: var(--secondary-bg-color);
   }
  .discussion .comments .content p {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 4;
     flex-grow: 1;
     padding: 0 1em;
-
   }
 
   .border-test > div{

@@ -122,7 +122,7 @@ function Comments(props) {
               <div>
                 <div className="border-node"></div>
                 <div className="content">
-                  <header>
+
                     <div className="user-info">
                       <figure>
                         <img />
@@ -131,7 +131,7 @@ function Comments(props) {
                     </div>
 
                     <h4>{comment.date.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
-                  </header>
+
                   {editActive && commentActive === comment.commentid
                     ? <textarea maxlength="500" value={messageText} className="form-control z-depth-1" onChange={e=> maxCharacters(e.target.value)} />
                     : <p maxlength="500">{comment.comment_text}</p>}

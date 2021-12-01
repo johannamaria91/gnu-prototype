@@ -161,8 +161,6 @@ function Discussion(props) {
                           </figure>
                           <h5 className="user-name">{post.user}</h5>
                         </div>
-
-
                       </div>
 
                       {editActive && postActive === post.postid
