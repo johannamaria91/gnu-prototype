@@ -10,15 +10,13 @@ const Search = (props) => {
     }
 
     return (
-        
-            
-            <div className="search">
-                <input type="text" placeholder="Search..." onChange={(e) => { 
-                    setSearch(e.target.value)}} />
-            </div>
-            
-            
-      
+
+        <div className="search">
+            <input type="text" placeholder="Search..." onChange={(e) => {
+                setSearch(e.target.value)
+            }} />
+        </div>
+
     )
 }
 
