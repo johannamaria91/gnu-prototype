@@ -26,11 +26,6 @@
     display: flex;
     flex-direction: column;
   }
-
-  .comments header h4 {
-    align-self: center;
-  }
-  
   
 .footer button{
     background: none;
@@ -43,11 +38,36 @@
     display: none;
   }
 
+  .comments h4 {
+    align-self: center;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 4;
+    grid-row-end: 5;
+  }
+
+  .comments header .user-info {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .comment-text{
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 4;
+  }
+  .footer{
+    grid-column-start: 4;
+    grid-column-end: 4;
+    grid-row-start: 4;
+    grid-row-end: 4;
+  }
+
   .discussion .comments .content {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 3fr 1fr;
     padding: 1em;
-    display: flex;
+    display: grid;
     background: var(--secondary-bg-color);
   }
  .discussion .comments .content p {

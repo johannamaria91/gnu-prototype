@@ -127,7 +127,7 @@ function Comments(props) {
                       <figure>
                         <img />
                       </figure>
-                      <h5 className="user-name">{comment.user}</h5>
+                      <h4 className="user-name">{comment.user}</h4>
                     </div>
 
                     <h4>{comment.date.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
