@@ -16,6 +16,7 @@ function Discussion(props) {
   const [editActive, setEditActive] = useState(false)
   const [postActive, setPostActive] = useState('')
   const [deleteActivated, setDeleteActivated] = useState(false)
+  const [charactersLeft, setCharactersLeft] = useState(0)
   let location = useLocation();
   let topicInfo = location.state;
   console.log(topicInfo)
@@ -34,6 +35,13 @@ function Discussion(props) {
     const data = await response.json()
     console.log(data)
     setDataList(data);
+  }
+
+  function maxCharacters(messageText) {
+    if (messageText.length <= 500) {
+      setMessageText(messageText)
+      setCharactersLeft(messageText.length)
+    }
   }
 
   function handleClick(e) {
@@ -153,14 +161,11 @@ function Discussion(props) {
                           </figure>
                           <h5 className="user-name">{post.user}</h5>
                         </div>
-
-
                       </div>
 
                       {editActive && postActive === post.postid
-                        ? <textarea value={messageText} className="form-control z-depth-1" onChange={e => setMessageText(e.target.value)} />
-                        : <p>{post.text}</p>}
-
+                        ? <textarea maxlength="500" value={messageText} className="form-control z-depth-1" onChange={e => maxCharacters(e.target.value)} />
+                        : <p maxlength="500" >{post.text}</p>}
 
                       <section className="reaction-container">
                       <h4>{post.dateTime.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
@@ -186,19 +191,16 @@ function Discussion(props) {
             )
               : 'oops kan inte nå api'}
 
-
             <article className={showComments ? "hide" : "new-message"}>
               <form>
-                <input type="text" placeholder="Username" className="input-name" onChange={e => setUsername(e.target.value)} />
-                <textarea rows="4" placeholder="Write something..." className="input-text" onChange={e => setMessageText(e.target.value)} />
+                <input maxlength="500" type="text" placeholder={"Username"} className="input-name" onChange={e => setUsername(e.target.value)} />
+                <textarea rows="4" maxlength="500" placeholder="Write something..." className="input-text" onChange={e => maxCharacters(e.target.value)} />
+                <p>{charactersLeft}/500</p>
                 <button type="button" className="btn" onClick={(e) => handleClick(e)}>Post</button>
               </form>
             </article>
-
           </section>
-
         </section>
-
       </main>
     </div>
   );

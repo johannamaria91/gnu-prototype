@@ -22,15 +22,6 @@
     
   }
 
-  .comments header {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .comments header h4 {
-    align-self: center;
-  }
-  
   
 .footer button{
     background: none;
@@ -43,15 +34,45 @@
     display: none;
   }
 
+  .comments h4 {
+    align-self: center;
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start:1;
+    grid-row-end: 2;
+    text-align: right;
+  }
+
+  .comments header .user-info {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .comment-text{
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 4;
+  }
+  .footer{
+    grid-column-start: 4;
+    grid-column-end: 4;
+    grid-row-start: 4;
+    grid-row-end: 4;
+  }
   .discussion .comments .content {
-    padding: 1em;
-    display: flex;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 2rem 1fr;
+    padding: 1.4em;
+    display: grid;
     background: var(--secondary-bg-color);
   }
  .discussion .comments .content p {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 4;
     flex-grow: 1;
     padding: 0 1em;
-
   }
 
   .border-test > div{
