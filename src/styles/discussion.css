@@ -54,6 +54,8 @@ body {
     flex-direction: column;
     align-items: center;
     border-radius: .7em;
+    width: 100%;
+    max-width: 30rem;
   }
 
   
@@ -123,13 +125,14 @@ body {
 
   /* Posts */
 
-  
-
+  .post-text{
+    overflow-wrap: anywhere;
+  }
   .discussion .content {
     background: var(--off-white);
     border-radius: .7em;
     padding: 1em;
-    width: 80%;
+    width: 100%;
   }
 
   .discussion .header {

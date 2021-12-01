@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
 import Comments from './Comments';
 import "../styles/discussion.css";
 import Friends from './Friends/Friends'
@@ -16,6 +16,7 @@ function Discussion(props) {
   const [editActive, setEditActive] = useState(false)
   const [postActive, setPostActive] = useState('')
   const [deleteActivated, setDeleteActivated] = useState(false)
+  const [charactersLeft, setCharactersLeft] = useState(0)
   let location = useLocation();
   let topicInfo = location.state;
   console.log(topicInfo)
@@ -34,6 +35,13 @@ function Discussion(props) {
     const data = await response.json()
     console.log(data)
     setDataList(data);
+  }
+
+  function maxCharacters(messageText) {
+    if (messageText.length <= 500) {
+      setMessageText(messageText)
+      setCharactersLeft(messageText.length)
+    }
   }
 
   function handleClick(e) {
@@ -108,11 +116,18 @@ function Discussion(props) {
     setDeleteActivated(true)
     setPostActive(post.postid)
   }
+  
+  function cancleDelete(e, post) {
+    e.preventDefault()
+    setDeleteActivated(false)
+    setPostActive(post.postid)
+  }
+
 
 
   return (
 
-    <div className="discussionMain-container">
+    <div className="discussionMain-container" >
       <NavBar />
       <main>
         <section className="main-container">
@@ -121,10 +136,10 @@ function Discussion(props) {
               <Friends />
             </ul>
 
-          </section>
+          </section >
 
-          <section className="discussion">
-            <section className="topic-intro">
+          <section className="discussion" >
+            <section className="topic-intro" >
               <div className="user-info">
                 <figure>
                   <img />
@@ -140,7 +155,7 @@ function Discussion(props) {
               </footer>
             </section>
             {dataList ? dataList.posts.map(post =>
-              <div className="border-container">
+              <div className="border-container"  >
 
                 <article className="post" key={post.postid} >
                   <div>
@@ -153,23 +168,21 @@ function Discussion(props) {
                           </figure>
                           <h5 className="user-name">{post.user}</h5>
                         </div>
-
-
                       </div>
 
                       {editActive && postActive === post.postid
-                        ? <textarea value={messageText} className="form-control z-depth-1" onChange={e => setMessageText(e.target.value)} />
-                        : <p>{post.text}</p>}
+                        ? <textarea maxlength="500" value={messageText} className="form-control z-depth-1" onChange={e => maxCharacters(e.target.value)} />
+                        : <p maxlength="500" className="post-text">{post.text}</p>}
 
-
-                      <section className="reaction-container">
-                      <h4>{post.dateTime.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
+                      <section className="reaction-container"  >
+                        <h4>{post.dateTime.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
 
                         <button className={activePost === post.postid ? "active-post" : null} onClick={(e) => goToComments(e, post.postid)}><h4>{}omments</h4></button>
                         {deleteActivated && postActive === post.postid
-                          ? <button onClick={(e) => deletePost(e, post.postid)}><h4>Confirm delete</h4></button>
+                          ? <> <button onClick={(e) => deletePost(e, post.postid)}><h4>Confirm delete</h4></button>
+                            <button onClick={(e) => cancleDelete(e, post)}><h4>Cancle</h4></button> </>
                           : <button onClick={(e) => activateDelete(e, post)}><h4>Delete</h4></button>
-                        }
+                        } 
 
                         {editActive && postActive === post.postid
                           ? <button type="button" onClick={(e) => sendEdit(e, post)}><h4>Done</h4></button>
@@ -186,19 +199,16 @@ function Discussion(props) {
             )
               : 'oops kan inte nå api'}
 
-
             <article className={showComments ? "hide" : "new-message"}>
               <form>
-                <input type="text" placeholder="Username" className="input-name" onChange={e => setUsername(e.target.value)} />
-                <textarea rows="4" placeholder="Write something..." className="input-text" onChange={e => setMessageText(e.target.value)} />
+                <input maxlength="500" type="text" placeholder={"Username"} className="input-name" onChange={e => setUsername(e.target.value)} />
+                <textarea rows="4" maxlength="500" placeholder="Write something..." className="input-text" onChange={e => maxCharacters(e.target.value)} />
+                <p>{charactersLeft}/500</p>
                 <button type="button" className="btn" onClick={(e) => handleClick(e)}>Post</button>
               </form>
             </article>
-
           </section>
-
         </section>
-
       </main>
     </div>
   );

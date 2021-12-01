@@ -7,13 +7,16 @@ const NavBar = (props) => {
     return(
         <div className="navbar">
             
-            
             <nav>
                 <Link to="/"><li>Home</li></Link>
                 <Link to="/"><li>Friends</li></Link>
                 <Link to="/"><li>About</li></Link>
-            </nav>
-            <Search search={props.search}/>
+                <Search search={props.search}/>
+            </nav>  
+            <div className="avatar">
+                user avatar
+            </div>
+            
         </div>
      )
 }
