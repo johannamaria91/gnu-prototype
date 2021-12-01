@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
 import Comments from './Comments';
 import "../styles/discussion.css";
 import Friends from './Friends/Friends'
@@ -116,11 +116,18 @@ function Discussion(props) {
     setDeleteActivated(true)
     setPostActive(post.postid)
   }
+  
+  function cancleDelete(e, post) {
+    e.preventDefault()
+    setDeleteActivated(false)
+    setPostActive(post.postid)
+  }
+
 
 
   return (
 
-    <div className="discussionMain-container">
+    <div className="discussionMain-container" >
       <NavBar />
       <main>
         <section className="main-container">
@@ -129,10 +136,10 @@ function Discussion(props) {
               <Friends />
             </ul>
 
-          </section>
+          </section >
 
-          <section className="discussion">
-            <section className="topic-intro">
+          <section className="discussion" >
+            <section className="topic-intro" >
               <div className="user-info">
                 <figure>
                   <img />
@@ -148,7 +155,7 @@ function Discussion(props) {
               </footer>
             </section>
             {dataList ? dataList.posts.map(post =>
-              <div className="border-container">
+              <div className="border-container"  >
 
                 <article className="post" key={post.postid} >
                   <div>
@@ -161,20 +168,27 @@ function Discussion(props) {
                           </figure>
                           <h5 className="user-name">{post.user}</h5>
                         </div>
+
+
+
+                      
+
                       </div>
+
 
                       {editActive && postActive === post.postid
                         ? <textarea maxlength="500" value={messageText} className="form-control z-depth-1" onChange={e => maxCharacters(e.target.value)} />
                         : <p maxlength="500" >{post.text}</p>}
 
-                      <section className="reaction-container">
+                      <section className="reaction-container"  >
                       <h4>{post.dateTime.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
 
                         <button className={activePost === post.postid ? "active-post" : null} onClick={(e) => goToComments(e, post.postid)}><h4>{}omments</h4></button>
                         {deleteActivated && postActive === post.postid
-                          ? <button onClick={(e) => deletePost(e, post.postid)}><h4>Confirm delete</h4></button>
+                          ? <> <button onClick={(e) => deletePost(e, post.postid)}><h4>Confirm delete</h4></button>
+                            <button onClick={(e) => cancleDelete(e, post)}><h4>Cancle</h4></button> </>
                           : <button onClick={(e) => activateDelete(e, post)}><h4>Delete</h4></button>
-                        }
+                        } 
 
                         {editActive && postActive === post.postid
                           ? <button type="button" onClick={(e) => sendEdit(e, post)}><h4>Done</h4></button>
