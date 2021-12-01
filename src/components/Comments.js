@@ -152,15 +152,13 @@ function Comments(props) {
         </section>
 
         <form className={!showForm ? "hide" : "newComment-form"}>
-          <label htmlFor="userName">User</label>
-          <input maxlength="500" value={username} type="text" id="userName" className="form-control form-control-sm" onChange={e => setUsername(e.target.value)} />
-          <div className="form-group shadow-textarea">
-            <label htmlFor="commentArea">Message</label>
-            <textarea maxlength="500" value={messageText} className="form-control z-depth-1" id="commentArea" rows="2" onChange={e=> maxCharacters(e.target.value)}></textarea>
+          <input maxlength="500" placeholder="Username" value={username} type="text" id="userName" onChange={e => setUsername(e.target.value)} />
+            <textarea maxlength="500" placeholder="Write your comment..." value={messageText} id="commentArea" rows="2" onChange={e=> maxCharacters(e.target.value)}></textarea>
             <p>{charactersLeft}/500</p>
+          <div className="new-comment-btns">
+          <button type="button"  onClick={(e) => handleClick(e)}>Send message</button>
+          <button type="button"  onClick={() => cancel()}>Cancel</button>
           </div>
-          <button type="button" className="btn border border-1 mt-2" onClick={(e) => handleClick(e)}>Send message</button>
-          <button type="button" className="btn border border-1 mt-2" onClick={() => cancel()}>Cancel</button>
         </form>
       </section>
     )
