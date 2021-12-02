@@ -18,7 +18,8 @@ function Discussion(props) {
   const [deleteActivated, setDeleteActivated] = useState(false)
   const [charactersLeft, setCharactersLeft] = useState(0)
   let location = useLocation();
-  let topicInfo = location.state;
+  let topicInfo = location.state
+  const [numberOfPosts, setNumberOfPosts]  = useState(topicInfo.numberOfPosts);
   console.log(topicInfo)
   console.log(location)
 
@@ -86,9 +87,9 @@ function createNewPost() {
         "Content-type": "application/json; charset=UTF-8",
       }
     })
-   
-    getData();
     
+    getData();
+    setNumberOfPosts(numberOfPosts +1);
   }
 
   async function sendEdit(e, changedPost) {
@@ -126,6 +127,8 @@ function createNewPost() {
       }
     });
     getData()
+    setNumberOfPosts(numberOfPosts -1);
+
   }
 
   function activateDelete(e, post) {
@@ -167,7 +170,7 @@ function createNewPost() {
               <p>{topicInfo.text}</p>
               <footer className="reaction-box">
                 <h5>{topicInfo.date.slice(0, 19).replace('T', ' ').slice(0, 16)}</h5>
-                <h5>{topicInfo.numberOfPosts} posts on this topic</h5>
+                <h5>{numberOfPosts} posts on this topic</h5>
                 <button onClick={()=>createNewPost()}><h5>Create post on this topic</h5></button>
               </footer>
             </section>
