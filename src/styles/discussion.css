@@ -17,6 +17,10 @@ body {
     --secondary-bg-color: rgb(252, 198, 192);
     
   }
+
+  button {
+    cursor: pointer;
+  }
   
   .main-container {
    display: flex;

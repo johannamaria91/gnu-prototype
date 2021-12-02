@@ -67,6 +67,11 @@ function Discussion(props) {
     setactivePost(Id)
   }
 
+function createNewPost() {
+  setShowComments(false);
+  
+}
+
   async function addNewPost(message) {
     await fetch('http://localhost:3363/api/posts', {
       method: 'POST',
@@ -157,7 +162,7 @@ function Discussion(props) {
               <footer className="reaction-box">
                 <h5>{topicInfo.date.slice(0, 19).replace('T', ' ').slice(0, 16)}</h5>
                 <h5>{topicInfo.numberOfPosts} posts on this topic</h5>
-                <button><h5>Create post on this topic</h5></button>
+                <button onClick={()=>createNewPost()}><h5>Create post on this topic</h5></button>
               </footer>
             </section>
             {dataList ? dataList.posts.map(post =>
