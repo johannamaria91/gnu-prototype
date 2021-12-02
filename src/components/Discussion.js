@@ -194,7 +194,7 @@ function createNewPost() {
 
 
                       {editActive && postActive === post.postid
-                        ? <textarea maxlength="500" value={messageText} className="form-control z-depth-1" onChange={e => maxCharacters(e.target.value)} />
+                        ? <textarea maxlength="500" value={messageText} className="edit" onChange={e => maxCharacters(e.target.value)} />
                         : <p maxlength="500" >{post.text}</p>}
 
                       <section className="reaction-container"  >

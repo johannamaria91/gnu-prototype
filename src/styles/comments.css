@@ -79,6 +79,15 @@
     padding: 1em 0;
   }
 
+  .discussion .comments .content textarea {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 4;
+    flex-grow: 1;
+    padding: 1em 0;
+  }
+
   .border-test > div{
     display: flex;
   }

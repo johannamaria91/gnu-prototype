@@ -267,6 +267,15 @@ body {
   li {
     list-style: none;
   }
+
+  .discussion .edit {
+    width: 100%;
+    border-radius: .6em;
+    padding: 1em;
+    border: 2px solid rgb(136, 128, 135);
+    resize: vertical;
+    
+  }
   
   
    .active-post{
