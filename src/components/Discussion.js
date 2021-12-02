@@ -63,8 +63,14 @@ function Discussion(props) {
   function goToComments(e, Id) {
     e.preventDefault();
     setCommentsSection(<Comments id={Id} />)
-    setShowComments(!showComments)
-    setactivePost(Id)
+    
+    if (showComments && activePost === Id) {
+      setactivePost('')
+      setShowComments(false)
+    } else {
+      setShowComments(true)
+      setactivePost(Id)
+    }
   }
 
 function createNewPost() {
