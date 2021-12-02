@@ -1,4 +1,4 @@
-import { useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import Comments from './Comments';
 import "../styles/discussion.css";
 import Friends from './Friends/Friends'
@@ -35,6 +35,7 @@ function Discussion(props) {
     const data = await response.json()
     console.log(data)
     setDataList(data);
+    
   }
 
   function maxCharacters(messageText) {
@@ -54,6 +55,9 @@ function Discussion(props) {
     }
     console.log(message)
     addNewPost(message)
+    setMessageText('')
+    setUsername('')
+    
   }
 
   function goToComments(e, Id) {
@@ -71,7 +75,9 @@ function Discussion(props) {
         "Content-type": "application/json; charset=UTF-8",
       }
     })
+   
     getData();
+    
   }
 
   async function sendEdit(e, changedPost) {
@@ -116,7 +122,7 @@ function Discussion(props) {
     setDeleteActivated(true)
     setPostActive(post.postid)
   }
-  
+
   function cancleDelete(e, post) {
     e.preventDefault()
     setDeleteActivated(false)
@@ -171,7 +177,7 @@ function Discussion(props) {
 
 
 
-                      
+
 
                       </div>
 
@@ -181,14 +187,16 @@ function Discussion(props) {
                         : <p maxlength="500" >{post.text}</p>}
 
                       <section className="reaction-container"  >
-                      <h4>{post.dateTime.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
+                        <h4>{post.dateTime.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
 
-                        <button className={activePost === post.postid ? "active-post" : null} onClick={(e) => goToComments(e, post.postid)}><h4>{}omments</h4></button>
+                        <button className={activePost === post.postid ? "active-post" : null} onClick={(e) => goToComments(e, post.postid)}>
+                          <h4>{console.log(post)}comments</h4>
+                        </button>
                         {deleteActivated && postActive === post.postid
                           ? <> <button onClick={(e) => deletePost(e, post.postid)}><h4>Confirm delete</h4></button>
-                            <button onClick={(e) => cancleDelete(e, post)}><h4>Cancle</h4></button> </>
+                            <button onClick={(e) => cancleDelete(e, post)}><h4>Cancel</h4></button> </>
                           : <button onClick={(e) => activateDelete(e, post)}><h4>Delete</h4></button>
-                        } 
+                        }
 
                         {editActive && postActive === post.postid
                           ? <button type="button" onClick={(e) => sendEdit(e, post)}><h4>Done</h4></button>
@@ -207,8 +215,8 @@ function Discussion(props) {
 
             <article className={showComments ? "hide" : "new-message"}>
               <form>
-                <input maxlength="500" type="text" placeholder={"Username"} className="input-name" onChange={e => setUsername(e.target.value)} />
-                <textarea rows="4" maxlength="500" placeholder="Write something..." className="input-text" onChange={e => maxCharacters(e.target.value)} />
+                <input maxlength="500" type="text" placeholder={"Username"} value={username} className="input-name" onChange={e => setUsername(e.target.value)} />
+                <textarea rows="4" maxlength="500" placeholder="Write something..." value={messageText}className="input-text" onChange={e => maxCharacters(e.target.value)} />
                 <p>{charactersLeft}/500</p>
                 <button type="button" className="btn" onClick={(e) => handleClick(e)}>Post</button>
               </form>

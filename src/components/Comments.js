@@ -94,7 +94,7 @@ function Comments(props) {
       getComments(id);
     }
 
-    async function handleDelete(e, Cid) {
+    async function deleteComment(e, Cid) {
       e.preventDefault()
       await fetch(baseUrl + 'api/comments/' + Cid, {
         method: 'DELETE',
@@ -110,6 +110,12 @@ function Comments(props) {
       e.preventDefault()
       setDeleteActive(true)
       setDeleteCommentActive(comment.commentid)
+    }
+
+    function cancelDelete(e, comment) {
+      e.preventDefault()
+      setDeleteActive(false)
+      setCommentActive(comment.commentid)
     }
 
     return (
@@ -140,8 +146,11 @@ function Comments(props) {
                       ? <button type="button" onClick={(e) => SendEdit(e, comment)}>Done</button>
                       : <><button type="button" onClick={(e) => handleEdit(e, comment)}>Edit&nbsp;</button>
                         {deleteActive && deletecommentActive === comment.commentid
-                          ? <button type="button" onClick={(e) => handleDelete(e, comment.commentid)}>Confirm</button>
+                          ?  <> <button onClick={(e) => deleteComment(e, comment.commentid)}>Confirm delete</button>
+                          <button onClick={(e) => cancelDelete(e, comment)}>Cancel</button> </>
                           : <button type="button" onClick={(e) => setActiveDelete(e, comment)}>Delete</button>
+                         
+                        
                         }</>}
                   </div>
                 </div>

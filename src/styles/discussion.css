@@ -165,7 +165,9 @@ body {
     display: flex;
     flex-direction: row;
   }
-
+.discussion .content p {
+  padding: .5em 0;
+}
   .reaction-container {
     display: flex;
     flex-direction: row;
