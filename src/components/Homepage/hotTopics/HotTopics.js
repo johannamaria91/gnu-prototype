@@ -1,6 +1,5 @@
 import React from 'react'
-import './overlay.css'
-import './homepage.css'
+import './hottopics.css'
 
 const HotTopics = (props) => {
 
@@ -10,12 +9,12 @@ const HotTopics = (props) => {
 
     console.log(topics)
      return (
-        <section>
+        <section className="hotTopicWrapper">
             {hotTopics.map(topic => 
             <div key={topic.discussionid} className="hotTopics">
-            <div >{topic.headline}</div> 
-            <div >{topic.numberOfPosts}</div> 
-            <div >{topic.user}</div> 
+                <h5>Created by: <span className="topicUser">{topic.user}</span></h5>
+                <h4>{topic.headline}</h4> 
+                <div className="footer" >Posts on this topic: {topic.numberOfPosts}</div> 
             </div>
             
             ) }
