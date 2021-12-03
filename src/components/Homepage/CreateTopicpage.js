@@ -8,6 +8,7 @@ import './homepage.css'
 import DeleteTopic from './DeleteTopic';
 import share from '../../icons/share.svg'
 import trash from '../../icons/trash.svg'
+import HotTopics from './HotTopics';
 
 
 //testar
@@ -59,17 +60,21 @@ function CreateNewTopicPage() {
     setshowDeleteConfirm(true)
   }
 
+
   return (
     <div className="mainContainer-NewTopic">
       <NavBar search={search} />
 
       <section className="discussionsMain">
+      <HotTopics filteredTopics={filteredTopics}/>
         {showOverlay ? <> <div className="inputWrapper">
           <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
         </div> <Overlay fetchData={fetchData} close={close} /> </> :
+        
           <div className="inputWrapper">
             <input className="newTopic" type="text" placeholder={"Post something"} onClick={() => setShowOverlay(true)} />
           </div>}
+         
         <div className="friendsTopics">
           {filteredTopics ? filteredTopics.map(topic =>
             <div className="topic-container" key={topic.discussionid + topic.user}>
