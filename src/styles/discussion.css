@@ -7,6 +7,7 @@
   flex-direction: column;
   justify-content: center;
 }
+
 body {
     --off-white: whitesmoke;
     --bg-color: #f6f6f6;
@@ -15,7 +16,10 @@ body {
     --line-color: rgb(59, 58, 58);
     --secondary-color: salmon;
     --secondary-bg-color: rgb(252, 198, 192);
-    
+  }
+
+  button {
+    cursor: pointer;
   }
   
   .main-container {
@@ -54,8 +58,7 @@ body {
     flex-direction: column;
     align-items: center;
     border-radius: .7em;
-    width: 100%;
-    max-width: 30rem;
+    min-width: 70%;
   }
 
   
@@ -67,6 +70,8 @@ body {
     padding: 1.5em;
     
   }
+
+
 
   .discussion .user-info {
     display: flex; 
@@ -99,7 +104,8 @@ body {
   }
 
   .discussion .topic-intro p {
-    font-size: 14px
+    font-size: 14px;
+    padding: 1em 0;
   }
 
   .discussion .topic-intro h5 {
@@ -168,7 +174,9 @@ body {
     display: flex;
     flex-direction: row;
   }
-
+.discussion .content p {
+  padding: .5em 0;
+}
   .reaction-container {
     display: flex;
     flex-direction: row;
@@ -258,6 +266,15 @@ body {
   }
   li {
     list-style: none;
+  }
+
+  .discussion .edit {
+    width: 100%;
+    border-radius: .6em;
+    padding: 1em;
+    border: 2px solid rgb(136, 128, 135);
+    resize: vertical;
+    
   }
   
   

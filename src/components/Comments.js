@@ -13,7 +13,7 @@ function Comments(props) {
   const [commentActive, setCommentActive] = useState('')
   const [deletecommentActive, setDeleteCommentActive] = useState('')
   const [deleteActive, setDeleteActive] = useState(false)
-  const [showForm, setShowForm] = useState(true)
+  const [showForm, setShowForm] = useState(false)
   const [charactersLeft, setCharactersLeft] = useState(0)
 
 
@@ -94,7 +94,7 @@ function Comments(props) {
       getComments(id);
     }
 
-    async function handleDelete(e, Cid) {
+    async function deleteComment(e, Cid) {
       e.preventDefault()
       await fetch(baseUrl + 'api/comments/' + Cid, {
         method: 'DELETE',
@@ -110,6 +110,12 @@ function Comments(props) {
       e.preventDefault()
       setDeleteActive(true)
       setDeleteCommentActive(comment.commentid)
+    }
+
+    function cancelDelete(e, comment) {
+      e.preventDefault()
+      setDeleteActive(false)
+      setCommentActive(comment.commentid)
     }
 
     return (
@@ -133,15 +139,18 @@ function Comments(props) {
                     <h4>{comment.date.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
 
                   {editActive && commentActive === comment.commentid
-                    ? <textarea maxlength="500" value={messageText} className="form-control z-depth-1" onChange={e=> maxCharacters(e.target.value)} />
+                    ? <textarea maxlength="500" value={messageText} className="edit" onChange={e=> maxCharacters(e.target.value)} />
                     : <p maxlength="500">{comment.comment_text}</p>}
                   <div className="footer text-end">
                     {editActive && commentActive === comment.commentid
                       ? <button type="button" onClick={(e) => SendEdit(e, comment)}>Done</button>
                       : <><button type="button" onClick={(e) => handleEdit(e, comment)}>Edit&nbsp;</button>
                         {deleteActive && deletecommentActive === comment.commentid
-                          ? <button type="button" onClick={(e) => handleDelete(e, comment.commentid)}>Confirm</button>
+                          ?  <> <button onClick={(e) => deleteComment(e, comment.commentid)}>Confirm delete</button>
+                          <button onClick={(e) => cancelDelete(e, comment)}>Cancel</button> </>
                           : <button type="button" onClick={(e) => setActiveDelete(e, comment)}>Delete</button>
+                         
+                        
                         }</>}
                   </div>
                 </div>
@@ -152,7 +161,10 @@ function Comments(props) {
           ) : 'no comments for this post'}
         </section>
 
-        <form className={!showForm ? "hide" : "newComment-form"}>
+        {showForm
+        ? <form className={!showForm ? "hide" : "newComment-form"}>
+       
+
           <input maxlength="500" placeholder="Username" value={username} type="text" id="userName" onChange={e => setUsername(e.target.value)} />
             <textarea maxlength="500" placeholder="Write your comment..." value={messageText} id="commentArea" rows="2" onChange={e=> maxCharacters(e.target.value)}></textarea>
             <p>{charactersLeft}/500</p>
@@ -161,6 +173,12 @@ function Comments(props) {
           <button type="button"  onClick={() => cancel()}>Cancel</button>
           </div>
         </form>
+      :<form className="newComment-form">
+      <input placeholder="Reply..."  type="text"  onClick={(e) => setShowForm(true)} />
+      </form> }
+        
+
+        
       </section>
     )
   }
