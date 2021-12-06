@@ -18,7 +18,8 @@ function Discussion(props) {
   const [deleteActivated, setDeleteActivated] = useState(false)
   const [charactersLeft, setCharactersLeft] = useState(0)
   let location = useLocation();
-  let topicInfo = location.state;
+  let topicInfo = location.state
+  const [numberOfPosts, setNumberOfPosts]  = useState(topicInfo.numberOfPosts);
   console.log(topicInfo)
   console.log(location)
 
@@ -35,6 +36,7 @@ function Discussion(props) {
     const data = await response.json()
     console.log(data)
     setDataList(data);
+    
   }
 
   function maxCharacters(messageText) {
@@ -54,14 +56,28 @@ function Discussion(props) {
     }
     console.log(message)
     addNewPost(message)
+    setMessageText('')
+    setUsername('')
+    
   }
 
   function goToComments(e, Id) {
     e.preventDefault();
     setCommentsSection(<Comments id={Id} />)
-    setShowComments(!showComments)
-    setactivePost(Id)
+    
+    if (showComments && activePost === Id) {
+      setactivePost('')
+      setShowComments(false)
+    } else {
+      setShowComments(true)
+      setactivePost(Id)
+    }
   }
+
+function createNewPost() {
+  setShowComments(false);
+  
+}
 
   async function addNewPost(message) {
     await fetch('http://localhost:3363/api/posts', {
@@ -71,7 +87,9 @@ function Discussion(props) {
         "Content-type": "application/json; charset=UTF-8",
       }
     })
+    
     getData();
+    setNumberOfPosts(numberOfPosts +1);
   }
 
   async function sendEdit(e, changedPost) {
@@ -109,6 +127,8 @@ function Discussion(props) {
       }
     });
     getData()
+    setNumberOfPosts(numberOfPosts -1);
+
   }
 
   function activateDelete(e, post) {
@@ -117,10 +137,17 @@ function Discussion(props) {
     setPostActive(post.postid)
   }
 
+  function cancleDelete(e, post) {
+    e.preventDefault()
+    setDeleteActivated(false)
+    setPostActive(post.postid)
+  }
+
+
 
   return (
 
-    <div className="discussionMain-container">
+    <div className="discussionMain-container" >
       <NavBar />
       <main>
         <section className="main-container">
@@ -129,10 +156,10 @@ function Discussion(props) {
               <Friends />
             </ul>
 
-          </section>
+          </section >
 
-          <section className="discussion">
-            <section className="topic-intro">
+          <section className="discussion" >
+            <section className="topic-intro" >
               <div className="user-info">
                 <figure>
                   <img />
@@ -143,12 +170,12 @@ function Discussion(props) {
               <p>{topicInfo.text}</p>
               <footer className="reaction-box">
                 <h5>{topicInfo.date.slice(0, 19).replace('T', ' ').slice(0, 16)}</h5>
-                <h5>{topicInfo.numberOfPosts} posts on this topic</h5>
-                <button><h5>Create post on this topic</h5></button>
+                <h5>{numberOfPosts} posts on this topic</h5>
+                <button onClick={()=>createNewPost()}><h5>Create post on this topic</h5></button>
               </footer>
             </section>
             {dataList ? dataList.posts.map(post =>
-              <div className="border-container">
+              <div className="border-container"  >
 
                 <article className="post" key={post.postid} >
                   <div>
@@ -161,18 +188,27 @@ function Discussion(props) {
                           </figure>
                           <h5 className="user-name">{post.user}</h5>
                         </div>
+
+
+
+
+
                       </div>
 
+
                       {editActive && postActive === post.postid
-                        ? <textarea maxlength="500" value={messageText} className="form-control z-depth-1" onChange={e => maxCharacters(e.target.value)} />
+                        ? <textarea maxlength="500" value={messageText} className="edit" onChange={e => maxCharacters(e.target.value)} />
                         : <p maxlength="500" >{post.text}</p>}
 
-                      <section className="reaction-container">
-                      <h4>{post.dateTime.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
+                      <section className="reaction-container"  >
+                        <h4>{post.dateTime.slice(0, 19).replace('T', ' ').slice(0, 16)}</h4>
 
-                        <button className={activePost === post.postid ? "active-post" : null} onClick={(e) => goToComments(e, post.postid)}><h4>{}omments</h4></button>
+                        <button className={activePost === post.postid ? "active-post" : null} onClick={(e) => goToComments(e, post.postid)}>
+                          <h4>{console.log(post)}comments</h4>
+                        </button>
                         {deleteActivated && postActive === post.postid
-                          ? <button onClick={(e) => deletePost(e, post.postid)}><h4>Confirm delete</h4></button>
+                          ? <> <button onClick={(e) => deletePost(e, post.postid)}><h4>Confirm delete</h4></button>
+                            <button onClick={(e) => cancleDelete(e, post)}><h4>Cancel</h4></button> </>
                           : <button onClick={(e) => activateDelete(e, post)}><h4>Delete</h4></button>
                         }
 
@@ -193,8 +229,8 @@ function Discussion(props) {
 
             <article className={showComments ? "hide" : "new-message"}>
               <form>
-                <input maxlength="500" type="text" placeholder={"Username"} className="input-name" onChange={e => setUsername(e.target.value)} />
-                <textarea rows="4" maxlength="500" placeholder="Write something..." className="input-text" onChange={e => maxCharacters(e.target.value)} />
+                <input maxlength="500" type="text" placeholder={"Username"} value={username} className="input-name" onChange={e => setUsername(e.target.value)} />
+                <textarea rows="4" maxlength="500" placeholder="Write something..." value={messageText}className="input-text" onChange={e => maxCharacters(e.target.value)} />
                 <p>{charactersLeft}/500</p>
                 <button type="button" className="btn" onClick={(e) => handleClick(e)}>Post</button>
               </form>
