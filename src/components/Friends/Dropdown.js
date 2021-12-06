@@ -10,15 +10,15 @@ const Dropdown = () => {
     return (
         <>
             <div className="dropdownContainer" >
-                    <div className="threeDots" onClick={onClick} ></div>
-                    <nav ref={dropdownRef} className={`dropdown ${isActive ? "active" : "inactive"}`}  > 
-                        <ul>
-                            <li><a href= "#">Send DM</a> </li>
-                            <li><a href= "#">Call</a></li>
-                            <li><a href= "#">  Mute</a> </li>
-                            <li><a style={{color:'red'}} href= "#"> Remove</a> </li>
-                        </ul>
-                    </nav>
+                <div className="threeDots" onClick={onClick} ></div>
+                <nav ref={dropdownRef} className={`dropdown ${isActive ? "active" : "inactive"}`}  >
+                    <ul>
+                        <li><a href="#">Send DM</a> </li>
+                        <li><a href="#">Call</a></li>
+                        <li><a href="#">  Mute</a> </li>
+                        <li><a style={{ color: 'red' }} href="#"> Remove</a> </li>
+                    </ul>
+                </nav>
             </div>
         </>
     )
