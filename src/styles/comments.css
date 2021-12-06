@@ -85,7 +85,7 @@
     grid-row-start: 2;
     grid-row-end: 4;
     flex-grow: 1;
-    padding: 1em 0;
+    padding: 1em;
   }
 
   .border-test > div{

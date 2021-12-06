@@ -15,7 +15,7 @@ function Comments(props) {
   const [deleteActive, setDeleteActive] = useState(false)
   const [showForm, setShowForm] = useState(false)
   const [charactersLeft, setCharactersLeft] = useState(0)
-
+  const [disabled, setDisabled] = useState(false)
 
   useEffect(() => {
     getComments(id)
@@ -46,7 +46,7 @@ function Comments(props) {
       addNewComment(message)
       setMessageText("");
       setUsername("");
-      setCharactersLeft(500)
+      setCharactersLeft(0)
     }
 
     function cancel() {
@@ -60,6 +60,8 @@ function Comments(props) {
       setCommentActive(comment.commentid)
       setEditActive(true)
       setMessageText(comment.comment_text)
+      setShowForm(false)
+      setDisabled(true)
     }
 
     async function SendEdit(e, changedComment) {
@@ -76,8 +78,10 @@ function Comments(props) {
           }
         })
       }
-
+      setCharactersLeft(0)
+      setMessageText('')
       setEditActive(false)
+      setDisabled(false)
     }
 
 
@@ -144,7 +148,7 @@ function Comments(props) {
                   <div className="footer text-end">
                     {editActive && commentActive === comment.commentid
                       ? <button type="button" onClick={(e) => SendEdit(e, comment)}>Done</button>
-                      : <><button type="button" onClick={(e) => handleEdit(e, comment)}>Edit&nbsp;</button>
+                      : <><button type="button" onClick={(e) => handleEdit(e, comment)}>Edit</button>
                         {deleteActive && deletecommentActive === comment.commentid
                           ?  <> <button onClick={(e) => deleteComment(e, comment.commentid)}>Confirm delete</button>
                           <button onClick={(e) => cancelDelete(e, comment)}>Cancel</button> </>
@@ -173,7 +177,7 @@ function Comments(props) {
           </div>
         </form>
       :<form className="newComment-form">
-      <input placeholder="Reply..."  type="text"  onClick={(e) => setShowForm(true)} />
+      <input placeholder="Reply..."  type="text" disabled={disabled} onClick={(e) => setShowForm(true)} />
       </form> }
         
 
