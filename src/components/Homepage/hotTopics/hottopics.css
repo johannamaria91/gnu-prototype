@@ -21,20 +21,12 @@ section .hotTopicWrapper {
     margin-top: 1.5em;
     width: 15em;
 }
-<<<<<<< HEAD
-.hotTopics h4{
-=======
 .hotTopics h4 {
->>>>>>> 93a001c74c3c4782700fdeebf5cb582962468f62
     font-weight: 500 0.06px ;
     margin: 1em 0em;
 }
 
-<<<<<<< HEAD
-.hotTopics h5{
-=======
 .hotTopics h5 {
->>>>>>> 93a001c74c3c4782700fdeebf5cb582962468f62
     margin:0;
     font-weight:200;
 }
