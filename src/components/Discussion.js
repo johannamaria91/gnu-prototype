@@ -17,6 +17,7 @@ function Discussion(props) {
   const [postActive, setPostActive] = useState('')
   const [deleteActivated, setDeleteActivated] = useState(false)
   const [charactersLeft, setCharactersLeft] = useState(0)
+  const [hideForm, setHideForm] = useState(false)
   let location = useLocation();
   let topicInfo = location.state
   const [numberOfPosts, setNumberOfPosts]  = useState(topicInfo.numberOfPosts);
@@ -90,6 +91,7 @@ function createNewPost() {
     
     getData();
     setNumberOfPosts(numberOfPosts +1);
+    setCharactersLeft(0);
   }
 
   async function sendEdit(e, changedPost) {
@@ -108,13 +110,18 @@ function createNewPost() {
     }
 
     setEditActive(false)
+    setCharactersLeft(0)
+    setMessageText('')
+    setHideForm(false)
   }
 
   function editPost(e, post) {
     e.preventDefault()
+    setHideForm(true)
     setPostActive(post.postid)
     setEditActive(true)
     setMessageText(post.text)
+    
   }
 
   async function deletePost(e, id) {
@@ -188,7 +195,6 @@ function createNewPost() {
                           </figure>
                           <h5 className="user-name">{post.user}</h5>
                         </div>
-
                       </div>
 
                       {editActive && postActive === post.postid
@@ -222,7 +228,7 @@ function createNewPost() {
             )
               : 'oops kan inte nå api'}
 
-            <article className={showComments ? "hide" : "new-message"}>
+            <article className={showComments | hideForm ? "hide" : "new-message"}>
               <form>
                 <input maxlength="500" type="text" placeholder={"Username"} value={username} className="input-name" onChange={e => setUsername(e.target.value)} />
                 <textarea rows="4" maxlength="500" placeholder="Write something..." value={messageText}className="input-text" onChange={e => maxCharacters(e.target.value)} />
